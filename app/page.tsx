@@ -15,7 +15,7 @@ export default function FilterSlider() {
   const [active, setActive] = useState("All");
 
   return (
-    <div className="pt-[83px] pl-[18px] relative             hide-scrollbar">
+    <div className="pt-[30px] pl-[18px] relative             hide-scrollbar">
       <section className="h-[34px] relative overflow-hidden   ">
 
         {/* Left fixed icon */}
