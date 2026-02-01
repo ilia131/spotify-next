@@ -31,7 +31,7 @@ export default function FilterSlider() {
         </div>
 
         {/* Slider */}
-        <div className="overflow-x-auto scrollbar-none">
+        <div className="overflow-x-auto  hide-scrollbar">
           <div className="flex gap-[11.77px] pl-[50px] pr-4 whitespace-nowrap">
             {filters.map((item) => (
               <button
