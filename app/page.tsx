@@ -36,6 +36,7 @@ export default function FilterSlider() {
       <MoreLikeCard images={images.HipHopLogist} subtitle="More Like" label="Hiphopolgist" />
       <CardSlider cardimages={cardimages} />
       <CardSection items={cardimages1} title="Trending Hits"/>
+      <div className="bg-[#121212] h-20"></div>
     </div>
   );
 }
