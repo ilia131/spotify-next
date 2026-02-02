@@ -10,6 +10,7 @@
   font-weight: 400;
   font-style: normal;
   font-display: swap;
+  
 }
 
 
@@ -74,7 +75,7 @@ body {
 
 
 *::-webkit-scrollbar {
-
+  
   width: 15px;
 }
 
@@ -104,4 +105,24 @@ body {
 }
 .hide-scrollbar::-webkit-scrollbar { 
   display: none;  /* Safari and Chrome */
+}
+
+
+@layer utilities {
+  /* اسکرول افقی با ارتفاع 20px */
+  .scrollbar-x-20::-webkit-scrollbar {
+    height: 20px;
+  }
+
+  .scrollbar-x-20::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-x-20::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .scrollbar-x-20::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+  }
 }
