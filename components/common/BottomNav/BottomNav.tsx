@@ -17,7 +17,7 @@ export default function BottomNav() {
   return (
     <div className="
     
-    fixed bottom-0 left-0 w-full bg-[#121212] border-t border-gray-700 flex justify-around items-center h-20 pb-4 z-50">
+    fixed bottom-0 left-0 w-full bg-[#121212] border-t border-gray-700 flex justify-around items-center h-22 pb-5 z-50">
       {navItems.map((item) => (
         <button
           key={item.name}
