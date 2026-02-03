@@ -19,9 +19,9 @@ interface NavSliderProps {
 
 const NavSlider = ({
   filters,
-  defaultActive = filters[0]?.name,
+  
 }: NavSliderProps) => {
-  const {  handleClick , isActive } = useNavSlider(defaultActive);
+  const {  handleClick , isActive } = useNavSlider();
   return (
     <NavSliderLayout>
       <div className="overflow-x-auto hide-scrollbar">
