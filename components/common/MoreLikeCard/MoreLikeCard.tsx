@@ -4,7 +4,7 @@ import { StaticImageData } from "next/image"
 import Avatar from "../Avatar/Avatar"
 import TextContent from "../TextContent/TextContent"
 
-interface MoreLikeCardProps {
+export interface MoreLikeCardProps {
   images: string | StaticImageData
   label: string
   subtitle?: string

@@ -34,3 +34,37 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+
+
+🔹 جمع‌بندی وضعیت فاز ۱
+فاز	وضعیت
+Smoke Test	✅ ✅ ✅
+Static UI Test	✅ ✅ ✅
+DisplayName برای mocks	✅ ✅ ✅
+
+نتیجه: فاز ۱ کاملاً پاس شده و صفحه “safe” برای ادامه تست‌هاست.
+
+🔹 قدم بعدی برای صفحه اول (فاز ۲ و بعدی)
+فاز ۲: User Interaction & Conditional Rendering
+
+بررسی click / hover / focus
+
+تست loading / empty state / error state
+
+بررسی اینکه props واقعی (mocked data) درست رندر میشه
+
+فاز ۳: Data-driven UI
+
+استفاده از داده mock برای CardSection / CardSlider / MoreLikeCard
+
+مطمئن شدن که لیست‌ها و تصاویر درست رندر شدن
+
+فاز ۴: Integration / E2E (بعداً)
+
+وقتی API واقعی یا MSW اضافه شد
+
+تست contract بین فرانت و بک
+
+edge cases واقعی
