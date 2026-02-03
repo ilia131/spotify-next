@@ -1,7 +1,12 @@
 "use client";
-import FilterSlider from "@/components/FilterSlider/FilterSlider";
 
+import BrowsePage from "./browse/page";
+import BrowseLayout from "./browse/layout";
 
 export default function Home() {
-  return <FilterSlider />
+  return (
+     <BrowseLayout >
+         <BrowsePage />
+     </BrowseLayout> 
+     )
 }

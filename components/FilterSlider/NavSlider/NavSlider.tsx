@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { FilterButton } from "@/components/FilterSlider/NavSlider/FilterButton";
 import { useNavSlider } from "@/hooks/useNavSlider/useNavSlider";
@@ -9,6 +9,7 @@ export interface FilterItem {
   readonly height: string;
   readonly padding: string;
   readonly width: string;
+  readonly href: string;
 }
 
 interface NavSliderProps {
@@ -20,20 +21,21 @@ const NavSlider = ({
   filters,
   defaultActive = filters[0]?.name,
 }: NavSliderProps) => {
-  const { isActive, setActive } = useNavSlider(defaultActive);
-
+  const {  handleClick , isActive } = useNavSlider(defaultActive);
   return (
     <NavSliderLayout>
       <div className="overflow-x-auto hide-scrollbar">
         <div className="flex gap-[11.77px] pl-12.5 pr-4 whitespace-nowrap min-w-max">
-          {filters.map((item) => (
-            <FilterButton
-              key={item.name}
-              item={item}
-              isActive={isActive(item.name)}
-              onClick={setActive}
-            />
-          ))}
+          {filters.map((item) => {
+            return (
+              <FilterButton
+                key={item.name}
+                item={item}
+                isActive={isActive(item)}
+                onClick={() => handleClick(item)}
+              />
+            );
+          })}
         </div>
       </div>
     </NavSliderLayout>

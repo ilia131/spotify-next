@@ -5,6 +5,7 @@ export interface FilterItem {
   readonly height: string;
   readonly padding: string;
   readonly width: string;
+  readonly href:string;
 }
 
 export interface MediaItem {
