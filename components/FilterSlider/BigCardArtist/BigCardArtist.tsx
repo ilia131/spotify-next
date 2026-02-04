@@ -1,8 +1,7 @@
 import Image from "next/image"
 import images from "@/public/images"
 import CardHeader from "./CardHeader"
-import Preview from "./Preview"
-import PlayOption from "./PlayOption"
+
 import BottomBigArtist from "./BottomBigArtist"
 
 
