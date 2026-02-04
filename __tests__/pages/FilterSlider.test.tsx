@@ -5,9 +5,8 @@ import { CardSectionProps } from "@/components/common/CardSection/CardSection";
 import { CardSliderProps } from "@/components/common/CardSlider/CardSlider";
 import { ItemProps } from "@/components/common/Cards.tsx/Cards";
 import userEvent from "@testing-library/user-event";
-
 // Phase 1 Smoke Test UI Test
-jest.mock("../../components/common/NavSlider/NavSlider", () => {
+jest.mock("../../components/FilterSlider/NavSlider/NavSlider", () => {
     const MockNavSlider = () => <div data-testid="nav-slider" />;
     MockNavSlider.displayName = "NavSlider";
     return MockNavSlider;

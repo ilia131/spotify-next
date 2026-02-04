@@ -33,6 +33,7 @@ export const mediaLibrary: MediaLibrary = {
     picture: images.vini,
     desc: "Noah Kahan, Labrinth, Paris Paloma, jireel, Co...",
   },
+  
 };
 
 export const sectionsConfig: SectionConfig[] = [

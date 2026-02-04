@@ -6,14 +6,11 @@ export const useNavSlider = () => {
   const pathname = usePathname();
   const router = useRouter();
   
-  // استیت برای تغییر آنی رنگ دکمه قبل از لود شدن کامل صفحه مقصد
   const [optimisticPath, setOptimisticPath] = useState<string | null>(null);
 
-  // تعیین مسیر جاری: اگر به مقصد رسیدیم، استیت موقت را رها می‌کنیم
   const currentPath = optimisticPath === pathname ? pathname : (optimisticPath ?? pathname);
 
   const isActive = useCallback((item: FilterItem) => {
-    // منطق خاص برای صفحه اصلی و All
     if (item.name === "All") {
       return currentPath === "/" || currentPath === "/browse";
     }

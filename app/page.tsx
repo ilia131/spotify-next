@@ -6,7 +6,7 @@ import BrowseLayout from "./browse/layout";
 export default function Home() {
   return (
      <BrowseLayout >
-         <BrowsePage />
+            <BrowsePage />
      </BrowseLayout> 
      )
 }
