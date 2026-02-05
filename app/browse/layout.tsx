@@ -1,5 +1,6 @@
-
-import NavSlider from "@/components/FilterSlider/NavSlider/NavSlider";
+import { Suspense } from "react";
+import BrowseLoading from "./loading";
+import NavSlider from "@/components/common/NavSlider/NavSlider";
 
 const filters = [
     {
@@ -39,7 +40,9 @@ export default function BrowseLayout({ children }: { children: React.ReactNode }
       <div className="pl-4 relative hide-scrollbar ">
          <NavSlider filters={filters} />
       </div>
-      {children}
+      <Suspense fallback={<BrowseLoading />}>
+        {children}
+      </Suspense>
     </section>
   );
 }

@@ -21,11 +21,10 @@ const Cards = ({item } : CardProps) => {
                     alt="Cover"
                     unoptimized/>
                 </div>
-                <p className="text-[rgba(255_255_255/0.55)] text-[13px] line-clamp-2 "
+                <p className="text-[rgba(255_255_255/0.55)] text-[13px] line-clamp-2 pl-0 "
                 
                 >
-                Noah Kahan, Labrinth,
-                Paris Paloma,jireel,Co
+                 {item.desc}
                 </p>
               </div>
   )

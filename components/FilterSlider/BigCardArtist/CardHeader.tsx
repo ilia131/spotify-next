@@ -10,7 +10,7 @@ interface CardHeaderProps {
 
 const CardHeader = ({ coverSrc, title, subtitle }:CardHeaderProps) => {
   return (
-    <div className="absolute z-10 flex gap-3.5 pl-4 pt-4.25 pr-3">
+    <div className="absolute z-10 flex gap-3.5 pl-4 pt-4.25 right-2.75 left-0 ">
       <Image
         src={coverSrc}
         alt="Music cover"
@@ -20,9 +20,10 @@ const CardHeader = ({ coverSrc, title, subtitle }:CardHeaderProps) => {
         unoptimized
       />
 
-      <div className="flex flex-col">
-        <div className="flex items-center gap-1.75">
-          <h1 className="text-[22px] font-semibold text-white/90 max-[390px]:text-[20px] max-[350px]:text-[18px] max-[330px]:text-[16px]">
+      <div className="flex flex-col flex-1 " >
+        <div className="flex items-center pr-2.75 justify-between 
+        ">
+          <h1 className="text-[22px]  font-semibold text-white/90 max-[390px]:text-[20px] max-[350px]:text-[18px] max-[330px]:text-[16px]">
             {title}
           </h1>
            <PlusIcons />

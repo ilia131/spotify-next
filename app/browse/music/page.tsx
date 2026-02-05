@@ -1,11 +1,8 @@
-"use client"
+'use client'
+import MusicFilterSlider from '@/components/MusicFilterSlider/MusicFilterSlider'
 
 const Music = () => {
-  return (
-    <div>page</div>
-  )
+  return <MusicFilterSlider/>
 }
 
-
 export default Music
-

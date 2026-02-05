@@ -4,7 +4,7 @@ import images from "@/public/images"
 
 const ArtistMiniCard = () => {
   return (
-     <section className="pt-23.25 ">
+     <section className=" ">
           <div className="flex">
             <div className="h-15 w-15 rounded-tl-[5px] rounded-tr-[1px] rounded-br-[1px] rounded-bl-[5px] overflow-hidden">
               <Image src={images.Kagan} width={60} height={60} alt='kagan'  unoptimized/>

@@ -4,7 +4,7 @@ import { StaticImageData } from "next/image"
 
 export interface CardSectionProps {
     title: string
-    items: { picture: string | StaticImageData ; desc:string }[]
+    items: { picture: string | StaticImageData ; desc:string , name:string }[]
 }
   
 const CardSection = ({ title, items }: CardSectionProps) => {

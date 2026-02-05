@@ -1,6 +1,6 @@
 "use client";
 
-import { FilterButton } from "@/components/FilterSlider/NavSlider/FilterButton";
+import { FilterButton } from "@/components/common/NavSlider/FilterButton";
 import { useNavSlider } from "@/hooks/useNavSlider/useNavSlider";
 import { NavSliderLayout } from "./NavSliderLayout";
 

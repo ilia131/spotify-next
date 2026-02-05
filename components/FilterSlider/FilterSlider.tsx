@@ -13,12 +13,27 @@ import BigCardArtist from "./BigCardArtist/BigCardArtist";
 
 
 
+
+const artists = [
+  {pic:images.hip3, bg:images.hip2 , name:'HipHopologist'},
+  {pic:images.vini3, bg:images.vini2 , name:'Vinak'},
+  {pic:images.dorcci, bg:images.dorcci2 , name:'Dorcci'},
+  {pic:images.gucci, bg:images.gucci2 , name:'Gucci Flame'},
+
+]
+
+
 export default function FilterSlider() {
+  const otherSections = sectionsConfig.filter(
+    (section) =>
+      section.title !== "Made For ilia gholami !" &&
+      section.title !== "Popular Albums"
+  );
     
   return (
-    <div className="pl-4 relative hide-scrollbar pb-24">     
+    <div className="pl-4 relative hide-scrollbar pb-24 pt-23.25">     
       <ArtistMiniCard />
-      {sectionsConfig.map((section) => (
+      {otherSections.map((section) => (
         <CardSection
           key={section.title}
           title={section.title}
@@ -31,11 +46,12 @@ export default function FilterSlider() {
         label="Hiphopolgist"
       />
       <CardSlider
-        cardimages={mapItems(["cc", "bilie", "vini"])}
+        cardimages={mapItems(["gucci", "dorcci2", "vini"])}
         title=""
       />
-      <BigCardArtist />
-
+     {artists.map((item , i)=>(
+        <BigCardArtist item={item} key={i} />
+     ))}
     </div>
   );
 }

@@ -3,7 +3,7 @@ import Cards from "../Cards.tsx/Cards"
 import   { StaticImageData } from "next/image"
 
 export interface CardSliderProps {
-    cardimages: { picture: string | StaticImageData ; desc: string }[]
+    cardimages: { picture: string | StaticImageData ; desc: string , name:string }[]
     title : string;
    
 }

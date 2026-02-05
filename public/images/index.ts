@@ -7,6 +7,15 @@ import spotify from './spotify.png'
 import lildurk from './Lildurk.jpg'
 import vini2 from './vini2.jpg'
 import vini3 from './vini3.jpg'
+import hip2 from './Hip2.jpg'
+import hip3 from './hip3.jpg'
+import Tj1 from './Tijay1.jpg'
+import Tj2 from './Tijay2.jpg'
+import dorcci from './dorcci.jpg'
+import dorcci2 from './Dorcci3.jpg'
+import gucci2 from './gucci2.jpg'
+import gucci from './gucci.jpg'
+
 const images = {
   Bilie,
   HipHopLogist,
@@ -16,7 +25,15 @@ const images = {
   spotify,
   lildurk,
   vini2,
-  vini3
+  vini3,
+  hip2,
+  hip3,
+  Tj1,
+  Tj2,
+  dorcci,
+  dorcci2,
+  gucci2,
+  gucci,
 };
 
 export default images;
