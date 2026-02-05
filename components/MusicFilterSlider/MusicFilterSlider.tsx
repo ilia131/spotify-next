@@ -14,7 +14,7 @@ const Music = () => {
       section.title === "Popular Albums"
   );
   return (
-    <div className="pl-4 relative hide-scrollbar pb-24 pt-15">
+    <div className="pl-4 relative hide-scrollbar pb-24 pt-15 overflow-hidden">
       {specialSections.map((section) => (
             <CardSection
               key={section.title}

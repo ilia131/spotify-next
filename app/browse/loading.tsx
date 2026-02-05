@@ -1,13 +1,9 @@
-export default function Loading() {
-    return (
-      <section className="p-4 animate-pulse">
-        <div className="h-10 w-full bg-neutral-800 rounded-md mb-4" />
-  
-        <div className="grid grid-cols-2 gap-4">
-          {[...Array(6)].map((_, i) => (
-            <div key={i} className="h-40 bg-neutral-800 rounded-lg" />
-          ))}
-        </div>
-      </section>
-    );
-  }
+export default function BrowseLoading() {
+  return (
+    <div className="flex h-[40vh] w-full items-center justify-center gap-1.5">
+      <div className="h-2 w-2 animate-bounce rounded-full bg-zinc-500 [animation-delay:-0.3s]"></div>
+      <div className="h-2 w-2 animate-bounce rounded-full bg-zinc-400 [animation-delay:-0.15s]"></div>
+      <div className="h-2 w-2 animate-bounce rounded-full bg-zinc-300"></div>
+    </div>
+  );
+}
