@@ -13,7 +13,7 @@ const recentartist = [
 const RecentMusics = () => {
   return (
     <section className="pt-2.5   hide-scrollbar">
-      <div className="w-93.25 h-8.75 flex justify-between pr-4 items-center">
+      <div className=" h-8.75 flex justify-between pr-4 items-center">
           <h1 className="font-semibold text-[23px] text-[rgba(255_255_255/0.96)]">Recents</h1>
           <p className="text-[13px] text-[rgba(255_255_255/0.66)]">Show all</p>
       </div>

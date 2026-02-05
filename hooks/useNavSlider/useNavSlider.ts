@@ -30,6 +30,6 @@ export const useNavSlider = () => {
   return {
     isActive,
     handleClick,
-    isLoading: isPending, // این را به کامپوننت بده تا لودینگ فعال شود
+    isLoading: isPending,
   };
 };

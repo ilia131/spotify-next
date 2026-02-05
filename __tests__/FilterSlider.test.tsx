@@ -4,27 +4,30 @@ import { MoreLikeCardProps} from "@/components/common/MoreLikeCard/MoreLikeCard"
 import { CardSectionProps } from "@/components/common/CardSection/CardSection";
 import { CardSliderProps } from "@/components/common/CardSlider/CardSlider";
 import { ItemProps } from "@/components/common/Cards.tsx/Cards";
+import { renderHook, act } from "@testing-library/react";
+import { useNavSlider } from "@/hooks/useNavSlider/useNavSlider"; 
+import { usePathname, useRouter } from "next/navigation"
 import userEvent from "@testing-library/user-event";
 // Phase 1 Smoke Test UI Test
-jest.mock("../../components/FilterSlider/NavSlider/NavSlider", () => {
+jest.mock("@/components/common/NavSlider/NavSlider", () => {
     const MockNavSlider = () => <div data-testid="nav-slider" />;
     MockNavSlider.displayName = "NavSlider";
     return MockNavSlider;
   });
   
-jest.mock("../../components/ArtistMiniCard/ArtistMiniCard", () => {
+jest.mock("@/components/ArtistMiniCard/ArtistMiniCard", () => {
     const MockArtistMiniCard = () => <div data-testid="artist-mini-card" />;
     MockArtistMiniCard.displayName = "ArtistMiniCard";
     return MockArtistMiniCard;
   });
   
-jest.mock("../../components/common/CardSlider/CardSlider", () => {
+jest.mock("@/components/common/CardSlider/CardSlider", () => {
     const MockCardSlider = () => <div data-testid="card-slider" />;
     MockCardSlider.displayName = "CardSlider";
     return MockCardSlider;
   });
   
-jest.mock("../../components/common/MoreLikeCard/MoreLikeCard", () => {
+jest.mock("@/components/common/MoreLikeCard/MoreLikeCard", () => {
     const MockMoreLikeCard = (props:MoreLikeCardProps) => (
       <div data-testid="more-like-card">{props.label}</div>
     );
@@ -32,7 +35,7 @@ jest.mock("../../components/common/MoreLikeCard/MoreLikeCard", () => {
     return MockMoreLikeCard;
   });
   
-jest.mock("../../components/common/CardSection/CardSection", () => {
+jest.mock("@/components/common/CardSection/CardSection", () => {
     const MockCardSection = (props: CardSectionProps) => (
       <div data-testid={`card-section-${props.title}`}>{props.title}</div>
     );
@@ -45,7 +48,7 @@ jest.mock("../../components/common/CardSection/CardSection", () => {
 
 
 //Phase 3 Data-Driven UI
-jest.mock("../../components/common/CardSection/CardSection", () => {
+jest.mock("@/components/common/CardSection/CardSection", () => {
   const MockCardSection = (props: CardSectionProps) => (
     <div data-testid={`card-section-${props.title}`}>
       {props.items?.map((item: ItemProps, idx: number) => (
@@ -59,7 +62,7 @@ jest.mock("../../components/common/CardSection/CardSection", () => {
   return MockCardSection;
 });
 
-jest.mock("../../components/common/CardSlider/CardSlider", () => {
+jest.mock("@/components/common/CardSlider/CardSlider", () => {
   const MockCardSlider = (props: CardSliderProps) => (
     <div data-testid="card-slider">
       {props.cardimages?.map((item: ItemProps, idx: number) => (
@@ -120,7 +123,7 @@ describe("FilterSlider Page - Phase 2: User Interaction & Conditional Rendering"
 
   test("renders card sections with correct titles", () => {
     render(<FilterSlider />);
-    expect(screen.getByTestId("card-section-Fresh Tracks Friday !")).toBeInTheDocument();
+    expect(screen.getByTestId("card-section-Fresh Tracks Friday!")).toBeInTheDocument();
     expect(screen.getByTestId("card-section-Trending Hits")).toBeInTheDocument();
   });
 
@@ -141,5 +144,36 @@ describe("FilterSlider Page - Phase 2: User Interaction & Conditional Rendering"
 });
 
 
-
+jest.mock("next/navigation", () => ({
+    usePathname: jest.fn(),
+    useRouter: jest.fn(),
+  }));
+  
+  describe("useNavSlider Hook", () => {
+    const mockPush = jest.fn();
+    const mockPrefetch = jest.fn();
+  
+    beforeEach(() => {
+      jest.clearAllMocks();
+  
+      (useRouter as jest.Mock).mockReturnValue({
+        push: mockPush,
+        prefetch: mockPrefetch,
+      });
+      
+      (usePathname as jest.Mock).mockReturnValue("/browse");
+    });
+  
+    const mockItem = { name: "Music", href: "/browse/music", width:"", height:"", padding:"" };
+  
+    test("باید با کلیک، تابع push را با آدرس درست صدا بزند", () => {
+      const { result } = renderHook(() => useNavSlider());
+  
+      act(() => {
+        result.current.handleClick(mockItem);
+      });
+  
+      expect(mockPush).toHaveBeenCalledWith("/browse/music");
+    });
+  });
 

@@ -14,7 +14,7 @@ import BigCardArtist from "./BigCardArtist/BigCardArtist";
 
 
 
-const artists = [
+export const artists = [
   {pic:images.hip3, bg:images.hip2 , name:'HipHopologist'},
   {pic:images.vini3, bg:images.vini2 , name:'Vinak'},
   {pic:images.dorcci, bg:images.dorcci2 , name:'Dorcci'},
