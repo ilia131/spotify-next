@@ -32,6 +32,7 @@ const NavSlider = ({
                 key={item.name}
                 item={item}
                 isActive={isActive(item)}
+                
                 onClick={() => handleClick(item)}
               />
             );
