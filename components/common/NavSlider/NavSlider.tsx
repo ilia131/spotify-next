@@ -3,7 +3,6 @@
 import { FilterButton } from "@/components/common/NavSlider/FilterButton";
 import { useNavSlider } from "@/hooks/useNavSlider/useNavSlider";
 import { NavSliderLayout } from "./NavSliderLayout";
-
 export interface FilterItem {
   readonly name: string;
   readonly height: string;
@@ -21,7 +20,11 @@ const NavSlider = ({
   filters,
   
 }: NavSliderProps) => {
-  const {  handleClick , isActive } = useNavSlider();
+  const {  handleClick , isActive  } = useNavSlider();
+
+  
+
+
   return (
     <NavSliderLayout>
       <div className="overflow-x-auto hide-scrollbar">

@@ -31,15 +31,15 @@ const ButtonBottomNav = ({item , setActive , active} : ButtonBottomNavProps) => 
         >
             <div
             className={`${
-                active === item.name ? "text-green-500 fill-green-400" : "fill-[rgba(255_255_255/65)]"
+                active === item.name ? "text-[rgba(255_255_255/1)] fill-[rgba(255_255_255/1)]" : "fill-[rgba(255_255_255/0.50)]"
             }`}
             >
             {item.icon}
             </div>
             <span 
             className={`${
-            active === item.name ? "text-green-500 " : "text-[rgba(255_255_255/65)] "
-            }text-[10px] text-[rgba(255_255_255/65)]`}
+            active === item.name ? "text-[rgba(255_255_255/1)] " : "text-[rgba(255_255_255/0.65)] "
+            }text-[10px] text-[rgba(255_255_255/0.50)]`}
             >{item.label}</span>
         </button>
   )

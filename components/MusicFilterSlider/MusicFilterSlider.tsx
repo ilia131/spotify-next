@@ -8,6 +8,7 @@ import { mapItems } from "@/components/FilterSlider/utils";
 import RecentMusics from "./RecentMusics";
 import BigCardArtist from "../FilterSlider/BigCardArtist/BigCardArtist";
 import { artists } from "../FilterSlider/FilterSlider";
+
 const Music = () => {
   const specialSections = sectionsConfig.filter(
     (section) =>

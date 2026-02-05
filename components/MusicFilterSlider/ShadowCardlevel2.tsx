@@ -8,7 +8,7 @@ const ShadowCardlevel2 = () => {
     viewBox="0 0 69 70"
     fill="none"
     className="absolute -right-1 -bottom-px"
-  >
+    >
     <rect
       width="69"
       height="70"
