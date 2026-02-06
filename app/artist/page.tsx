@@ -4,11 +4,15 @@ import images from "@/public/images"
 import ArtistButtons from "@/components/Artist/ArtistButtons/ArtistButtons";
 import ArtistName from "@/components/Artist/ArtistName";
 import ArtistPopularMusic from "@/components/Artist/ArtistTabs/ArtistPopularMusic";
+import ArtistPick from "@/components/Artist/ArtistTabs/ArtistPick/ArtistPick";
+
+
+
 
 const Artist = () => {
   return (
     <div className="" >
-      <div className="relative w-full h-117 overflow-hidden">
+      <div className="relative w-full h-117 overflow-hidden pt-[env(safe-area-inset-top)]">
         <Image
           src={images.Kagan}
           alt="kagan"
@@ -23,7 +27,9 @@ const Artist = () => {
           
         </div>
       </div>
-      <ArtistPopularMusic />
+      <ArtistPopularMusic  />
+      
+      <ArtistPick />
     </div>
    
   );
