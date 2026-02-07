@@ -61,11 +61,15 @@
   }
 } */
 
+:root {
+  overflow-x: hidden;
+
+}
+
 body {
   background: #121212;
   color: var(--foreground);
   font-family: 'Poppins', sans-serif;
- 
   /* width: screen;
   
   height: screen; */

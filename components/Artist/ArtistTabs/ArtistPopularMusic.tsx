@@ -19,7 +19,7 @@ const artistcard = [
 
 const ArtistPopularMusic = () => {
   return (
-    <div className=" pl-4.5 pt-3.5  grid h-full max-h-screen gap-5  items-center">
+    <div className=" pl-4.5 pt-3.5  grid   gap-5  items-center">
       <TitleMusic title="Popular" />
       {artistcard.map((item , i)=>(
          <MusicRowCard key={i} item={item} />
