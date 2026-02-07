@@ -27,7 +27,7 @@ export default function FilterSlider() {
   const otherSections = sectionsConfig.filter(
     (section) =>
       section.title !== "Made For ilia gholami !" &&
-      section.title !== "Popular Albums"
+      section.title !== "Popular Albums" && section
   );
     
   return (
