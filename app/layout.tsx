@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import localFont from "next/font/local";
 import BottomNav from "@/components/common/BottomNav/BottomNav";
+import MusicPlayer from "@/components/common/MusicPlayer/MusicPlayer";
 
 const myFont = localFont({
   src: "../public/fonts/Poppins/Poppins-Medium.ttf",
@@ -25,6 +26,7 @@ export default function RootLayout({
         className={myFont.className}
       >
         {children}
+        <MusicPlayer />
         <BottomNav />
       </body>
     </html>

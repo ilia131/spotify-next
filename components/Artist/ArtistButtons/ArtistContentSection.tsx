@@ -26,7 +26,7 @@ const shortvideo = [
 
 const ArtistContentSection = () => {
   return (
-    <section className="grid pb-30 overflow-hidden">
+    <section className="grid pb-50 overflow-hidden">
       <ArtistPopularMusic />
       <ArtistPick />
       <ArtistPopularRelease artistpm={artistpm}/> 
