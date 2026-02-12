@@ -1,16 +1,13 @@
 import TitleMusic from "../ArtistTabs/TitleMusic";
-import  { StaticImageData } from "next/image";
+import { Song } from "@/redux/features/playerSlice";
 
 import PopularReleaseCard from "./PopularReleaseCard";
 
 interface ArtistPopularMusicProps {
-    artistpm:ItemPopularMusic[]
+    artistpm:Song[]
 }
 
-interface ItemPopularMusic {
-    musicname:string;
-    cover:StaticImageData;
-}
+
 
 const ArtistPopularRelease = ({artistpm}:ArtistPopularMusicProps) => {
   return (

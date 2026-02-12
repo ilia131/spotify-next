@@ -1,23 +1,27 @@
-import { StaticImageData } from "next/image"
-import ImageMusicCard from "./ImageMusicCard"
-import OptionCardMusic from "./OptionCardMusic"
+import { Song, setQueue } from "@/redux/features/playerSlice";
+import { useAppDispatch } from "@/redux/hook";
+import ImageMusicCard from "./ImageMusicCard";
+import OptionCardMusic from "./OptionCardMusic";
 
-
-interface ItemProps {
-   item:ArtistProps
+interface MusicRowCardProps {
+  item: Song;
+  songs: Song[];
+  index: number;
 }
 
+const MusicRowCard = ({item ,  songs , index} :MusicRowCardProps) => {
+  const dispatch = useAppDispatch();
 
-interface ArtistProps {
-  id: number
-  musicname : string
-  image: StaticImageData;
-  countview:string;
-}
 
-const MusicRowCard = ({item} :ItemProps) => {
+  const handlePlay = () => {
+    dispatch(setQueue({ songs, startIndex: index }));
+  };
+ 
   return (
-      <div className=" h-12.75 flex items-center pr-6.25 gap-3.5 ">
+      <div className=" h-12.75 flex items-center pr-6.25 gap-3.5 "
+      onClick={handlePlay}
+
+      >
         <ImageMusicCard item={item} />
         <OptionCardMusic item={item} />
       </div>

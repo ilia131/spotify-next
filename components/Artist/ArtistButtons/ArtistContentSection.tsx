@@ -1,9 +1,9 @@
 import ArtistPopularMusic from "../ArtistTabs/ArtistPopularMusic";
 import ArtistPick from "../ArtistTabs/ArtistPick/ArtistPick";
 import ArtistPopularRelease from "./ArtistPopularRelease";
-
 import images from "@/public/images";
 import ArtistFeaturing from "./ArtistFeaturing";
+import { Song } from "@/redux/features/playerSlice";
 
 import ArtistVerify from "./ArtistVerify";
 
@@ -23,17 +23,21 @@ const shortvideo = [
   
 ]
 
+interface ArtistContentSectionProps {
+   songs: Song[]
+}
 
-const ArtistContentSection = () => {
+
+
+const ArtistContentSection = ({songs}:ArtistContentSectionProps) => {
   return (
     <section className="grid pb-50 overflow-hidden">
-      <ArtistPopularMusic />
+      <ArtistPopularMusic songs={songs ||artistpm} />
       <ArtistPick />
-      <ArtistPopularRelease artistpm={artistpm}/> 
+      <ArtistPopularRelease artistpm={songs ||artistpm}/> 
       <ArtistFeaturing />
       <ShortVideoSection shortvideo={shortvideo} />
-      <ArtistVerify />
-      
+      <ArtistVerify /> 
     </section>
   );
 };

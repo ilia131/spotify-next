@@ -1,5 +1,7 @@
 import { MediaKey,  MediaLibrary } from "./media";
 import images from "@/public/images";
+ 
+
 
 export const mediaLibrary: MediaLibrary = {
   cc: { picture: images.cc, desc: "Centeral Cee, Sprinter , Lilbaby,", name:'Centeral Cee'},
@@ -28,3 +30,6 @@ export const sectionsConfig: SectionConfig[] = [
   { title: "Recommended Today", items: ["hiphoplogist2", "gucci2", "cc"] },
   { title: "Your Favorite Artists", items: ["hiphoplogist", "vini", "dorcci", "dorcci2"], variant: "artist" },
 ];
+
+
+

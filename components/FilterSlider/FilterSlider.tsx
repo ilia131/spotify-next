@@ -8,6 +8,8 @@ import ArtistMiniCard from "../ArtistMiniCard/ArtistMiniCard";
 import { sectionsConfig } from "@/data/homeSection";
 import { mapItems } from "./utils";
 import BigCardArtist from "./BigCardArtist/BigCardArtist";
+import { useGetsongsQuery } from "@/redux/services/songsApiSlice";
+import { useArtistsQuery } from "@/redux/services/artistApislice";
 
 
 
@@ -24,12 +26,17 @@ export const artists = [
 
 
 export default function FilterSlider() {
+  
+
   const otherSections = sectionsConfig.filter(
     (section) =>
       section.title !== "Made For ilia gholami !" &&
       section.title !== "Popular Albums"
-  );
-    
+  ); 
+  
+  const {data , error , isLoading} = useArtistsQuery(0)
+
+  const data2 = data || mapItems(["gucci", "dorcci2", "vini"])
   return (
     <div className="pl-4 relative hide-scrollbar pb-24 pt-23.25">     
       <ArtistMiniCard />
@@ -40,15 +47,18 @@ export default function FilterSlider() {
           items={mapItems(section.items)}
         />
       ))}
+      
       <MoreLikeCard
         images={images.HipHopLogist}
         subtitle="More Like"
         label="Hiphopolgist"
       />
+
       <CardSlider
-        cardimages={mapItems(["gucci", "dorcci2", "vini"])}
+        cardimages={data2}
         title=""
       />
+     
      {artists.map((item , i)=>(
         <BigCardArtist item={item} key={i} />
      ))}

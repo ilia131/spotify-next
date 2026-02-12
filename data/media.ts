@@ -7,7 +7,10 @@ export type MediaKey = "cc" | "bilie"
 export interface MediaItem {
   picture: StaticImageData;
   desc: string;
-  name:string
+  name:string;
+  profile_pic:StaticImageData,
+    id:string
+    bio:string
 }
 
 export type MediaLibrary = Record<MediaKey, MediaItem>;
