@@ -1,6 +1,6 @@
 import { StaticImageData } from "next/image";
 
-export type MediaKey = "cc" | "bilie"
+export type MediaKey = "cc"| "bilie"
  | "vini" | "vini2" | "dorcci" | 'hiphoplogist' | 'hiphoplogist2' 
  | 'dorcci2' | 'gucci' | 'gucci2';
 
