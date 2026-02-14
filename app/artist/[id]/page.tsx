@@ -11,7 +11,7 @@ const Artist = () => {
   const {data} = useGetsongidQuery(id)
 
   return (
-    <main className="relative">
+    <main >
          <ArtistHeroSection image={data?.profile_pic} artistname={data?.artistname}/>
          <ArtistContentSection songs={data?.songs} />
     </main>
