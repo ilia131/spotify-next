@@ -18,7 +18,7 @@ const LikedSongImage = ({image}:ImageArtistProps) => {
             src={image}
             width={71}
             height={73}
-            className="relative z-10 w-17.75 h-18.25 rounded-[5px]"
+            className="relative z-2 w-17.75 h-18.25 rounded-[5px]"
             alt="liked songs"
             unoptimized
             />

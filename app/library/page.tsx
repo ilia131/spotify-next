@@ -1,8 +1,10 @@
 "use client"
 
+import React from 'react'
+
 const Library = () => {
   return (
-    <div>page</div>
+    <div>Library</div>
   )
 }
 

@@ -6,11 +6,8 @@ export interface CardSliderProps {
     cardimages: { picture: string | StaticImageData ; desc: string , name:string , profile_pic:StaticImageData,
       id:string
       bio:string }[]
-    title : string;
-   
+      title : string;
 }
-
-
 
 
 const CardSlider = ({cardimages , title} : CardSliderProps) => {

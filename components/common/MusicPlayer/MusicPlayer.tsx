@@ -1,50 +1,59 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import { playNext } from "@/redux/features/playerSlice";
-import ButtonsMusicPlayer from "./ButtonsMusicPlayer";
-
+import { useState , useCallback  } from "react";
+import { useAudioPlayer } from "@/hooks/audiohooks/useAudioPlayer";
+import { useAppSelector } from "@/redux/hook";
+import CoverMusicPlayer from "./CoverMusicPlayer/CoverMusicPlayer";
+import MiniPlayer from "./MiniPlayer";
 const MusicPlayer = () => {
-  const dispatch = useAppDispatch();
+  const [open, setOpen] = useState(false);
+
   const { queue, currentIndex, isPlaying } = useAppSelector((s) => s.player);
   const currentSong = queue[currentIndex];
 
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [progress, setProgress] = useState(0); 
+  const {
+    audioRef,
+    progress,
+    currentTime,
+    duration,
+    handleTimeUpdate,
+    handleSeek,
+    formatTime,
+  } = useAudioPlayer(currentSong, isPlaying);
+  
+  const handleOpenCover = useCallback(() => {
+    setOpen(true);
+  }, []);
 
-  useEffect(() => {
-    if (!audioRef.current || !currentSong) return;
-
-    if (isPlaying) audioRef.current.play();
-    else audioRef.current.pause();
-  }, [isPlaying, currentSong]);
-
-  const handleTimeUpdate = () => {
-    if (!audioRef.current) return;
-    const percent =
-      (audioRef.current.currentTime / audioRef.current.duration) * 100;
-    setProgress(percent || 0);
-  };
+  const handleCloseCover = useCallback(() => {
+    setOpen(false);
+  }, []);
 
   return (
-    <section className="fixed  w-[96.5%] left-2.25 right-2.5  bg-linear-to-t from-[rgba(92,88,76,1)]  to-[rgba(92,88,76,1)]  
-       bottom-22 h-14.25  z-4 rounded-[11px] flex pl-2 items-center justify-between pr-4.75 shrink-0">
-
-      <ButtonsMusicPlayer />
-      <audio
-        ref={audioRef}
-        src={currentSong?.track}
-        onTimeUpdate={handleTimeUpdate}
-        onEnded={() => dispatch(playNext())}
+   <>
+    <MiniPlayer
+        currentSong={currentSong}
+        audioRef={audioRef}
+        progress={progress}
+        handleTimeUpdate={handleTimeUpdate}
+        onOpenCover={handleOpenCover}
       />
-       <div className="w-full pr-4 pl-3.25 bg-[rgba(255,255,255,0.5)] h-0.5 mt-13.5 rounded-[1px] shrink-0 relative">
-        <div
-          className="w-full  bg-[rgba(255,255,255,0.5)] h-0.5 absolute left-0    transition-all duration-300 rounded-[1px]"
-          style={{ width: `${progress}%` }}
-        />
-      </div>
-    </section>
+    
+         {open && (
+          <div className="h-screen ">
+                <CoverMusicPlayer 
+                    
+                    onClose={handleCloseCover}
+                    currentSong={currentSong}
+                    progress={progress}
+                    lowerTime={formatTime(currentTime)}
+                    higherTime={formatTime(duration)}
+                    handleSeek={handleSeek}
+                />
+           </div>
+         )}
+    
+  </>
   );
 };
 

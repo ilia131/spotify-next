@@ -17,6 +17,7 @@ import gucci2 from './gucci2.jpg'
 import gucci from './gucci.jpg'
 import kagan2 from './kagan2.png'
 import Cp from './Cyberpunk.jpg'
+import sinazza from './sinazza.png'
 const images = {
   Bilie,
   HipHopLogist,
@@ -37,6 +38,7 @@ const images = {
   gucci,
   kagan2,
   Cp,
+  sinazza,
 };
 
 export default images;

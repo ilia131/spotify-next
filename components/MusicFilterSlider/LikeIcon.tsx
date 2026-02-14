@@ -6,7 +6,7 @@ const LikeIcon = () => {
       height="33"
       viewBox="0 0 34 33"
       fill="none"
-      className="absolute -left-1.75 -bottom-4.25 z-22"
+      className="absolute -left-1.75 -bottom-4.25 z-3"
     >
       <path
         d="M0 5C0 2.23858 2.23858 0 5 0H29C31.7614 0 34 2.23858 34 5V28C34 30.7614 31.7614 33 29 33H5C2.23858 33 0 30.7614 0 28V5Z"

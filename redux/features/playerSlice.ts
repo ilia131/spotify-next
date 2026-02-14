@@ -3,12 +3,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export type Song = {
   id: number;
   title: string;
-  artist: string;
+  artist: number;
   audioUrl: string ;
   track: string;
   image: string;
   unique_id: string
   play_count:string;
+  artist_name:string
   description:string
 };
 
