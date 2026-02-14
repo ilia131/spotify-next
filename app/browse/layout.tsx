@@ -37,9 +37,9 @@ const filters = [
 export default function BrowseLayout({ children }: { children: React.ReactNode }) {
   return (
     <section className="">
-      <div className="pl-4 relative hide-scrollbar ">
+      {/* <div className="pl-4 relative hide-scrollbar ">
          <NavSlider filters={filters} />
-      </div>
+      </div> */}
       <Suspense fallback={<BrowseLoading />}>
         {children}
       </Suspense>
