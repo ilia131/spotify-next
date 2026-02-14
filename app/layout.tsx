@@ -1,22 +1,20 @@
-import "./globals.css";
-
 import type { Metadata } from "next";
 import RootClientLayout from "./RootClientLayout";
 import localFont from "next/font/local";
 import Provider from '@/redux/Provider';
 import PWARegister from "./pwa-register";
 
+import "./globals.css";
 import Setup from "@/utils/authsetup/Setup";
 import type { Viewport } from "next";
-import images from "@/public/images";
-import Image from "next/image";
+
 export const viewport: Viewport = {
   // themeColor: "#121212",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  viewportFit: 'cover',
+  viewportFit: 'auto',
   themeColor:'#121212'
 };
 
@@ -38,15 +36,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={`${myFont.className}`}>
-        {/* <Provider>
+        <Provider>
         <PWARegister />
 
           <Setup />
              <RootClientLayout>{children}</RootClientLayout>
-        </Provider> */}
-        <Image src={images.hip2} alt='dd' width={375} height={500}
-        className='fixed h-dvh pt-[-40px]'
-        />
+        </Provider>
       </body>
     </html>
   );
