@@ -9,7 +9,7 @@ import Setup from "@/utils/authsetup/Setup";
 import type { Viewport } from "next";
 
 export const viewport: Viewport = {
-  themeColor: "#000000",
+  themeColor: "#121212",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
