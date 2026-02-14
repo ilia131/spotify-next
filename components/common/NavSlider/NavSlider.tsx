@@ -27,7 +27,7 @@ const NavSlider = ({
 
   return (
     <NavSliderLayout>
-      <div className="overflow-x-auto hide-scrollbar">
+      <div className="overflow-x-auto hide-scrollbar ">
         <div className="flex gap-[11.77px] pl-12.5 pr-4 whitespace-nowrap min-w-max ">
           {filters.map((item) => {
             return (

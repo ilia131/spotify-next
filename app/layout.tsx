@@ -9,7 +9,7 @@ import Setup from "@/utils/authsetup/Setup";
 import type { Viewport } from "next";
 
 export const viewport: Viewport = {
-  themeColor: "#121212",
+  // themeColor: "#121212",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
@@ -34,7 +34,7 @@ const myFont = localFont({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={myFont.className}>
+      <body className={`${myFont.className} bg-[#121212] min-h-screen`}>
         <Provider>
         <PWARegister />
 

@@ -14,7 +14,7 @@ const ArtistHeroSection = ({
   artistname,
 }:ArtistHeroSectionProps) => {
   return (
-    <section className="relative w-full h-117 overflow-hidden">
+    <section className="relative w-full h-117 overflow-hidden pb-[env(safe-area-inset-bottom)]">
     <Image
       src={image || images.kagan2}
       alt="kagan"
