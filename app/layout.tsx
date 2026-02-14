@@ -3,7 +3,6 @@ import RootClientLayout from "./RootClientLayout";
 import localFont from "next/font/local";
 import Provider from '@/redux/Provider';
 import PWARegister from "./pwa-register";
-
 import "./globals.css";
 import Setup from "@/utils/authsetup/Setup";
 import type { Viewport } from "next";
@@ -26,6 +25,7 @@ export const metadata :Metadata = {
   manifest: "/manifest.webmanifest",
 };
 
+
 const myFont = localFont({
   src: "../public/fonts/Poppins/Poppins-Medium.ttf",
 });
@@ -33,6 +33,7 @@ const myFont = localFont({
 
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+
   return (
     <html lang="en">
       <body className={`${myFont.className}`}>

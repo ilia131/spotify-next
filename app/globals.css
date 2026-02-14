@@ -71,6 +71,8 @@ body {
   padding: 0;
   padding-bottom: env(safe-area-inset-bottom);
   box-sizing: border-box;
+  padding-bottom: 34px !important;
+  
   /* width: screen;
   
   height: screen; */
