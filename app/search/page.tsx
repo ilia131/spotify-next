@@ -28,13 +28,9 @@ const categories2 = [
   {cover:images.dorcci2},
   {cover:images.hip2},
   {cover:images.hip2},
-
   {cover:images.hip2},
-
   {cover:images.hip2},
-
   {cover:images.hip2},
-
   {cover:images.hip2},
 
   {cover:images.hip2},
