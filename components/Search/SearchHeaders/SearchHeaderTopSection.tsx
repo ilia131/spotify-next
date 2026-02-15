@@ -5,9 +5,9 @@ interface Props {
 const SearchHeaderTopSection = ({scrolled}:Props) => {
   return (
        <section className={`
-          w-32.25 h-9.5 relative flex items-center 
+          w-32.25 relative flex items-center 
           transition-all duration-300
-          ${scrolled ? 'opacity-0 -translate-y-4 h-0 mb-0' : 'opacity-100 translate-y-0'}
+          ${scrolled ? 'opacity-0 -translate-y-4  mb-0 h-3.5 ' : 'opacity-100 translate-y-0 h-9.5 '}
         `}
         >
            <OverlayLeft />
