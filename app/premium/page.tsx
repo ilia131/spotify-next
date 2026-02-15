@@ -2,7 +2,7 @@
 
 const Permium = () => {
   return (
-    <div>page</div>
+    <div className="bg-[#121212] ">page</div>
   )
 }
 
