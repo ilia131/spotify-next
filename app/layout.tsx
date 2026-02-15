@@ -12,7 +12,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  viewportFit: 'auto',
+  viewportFit: 'cover',
   themeColor:'#121212'
 };
 
@@ -26,7 +26,7 @@ export const metadata :Metadata = {
 
 
 const myFont = localFont({
-  src: "../public/fonts/Poppins/Poppins-Medium.ttf",
+  src: "../public/fonts/Inter23.ttf",
 });
 
 

@@ -13,6 +13,14 @@
   
 }
 
+@font-face {
+  font-family: 'Inter2';
+  src: url('/fonts/Inter2.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  
+}
 
 /* @font-face {
   font-family: 'Poppins';
@@ -61,12 +69,12 @@
 :root {
   overflow-x: hidden;
 
+
 }
 
 body {
   background: #121212;
   color: var(--foreground);
-  font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 0;
   padding-bottom: env(safe-area-inset-bottom);
