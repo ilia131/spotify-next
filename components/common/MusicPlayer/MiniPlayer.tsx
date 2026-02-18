@@ -36,6 +36,7 @@ const MiniPlayer = ({
       <ButtonsImageMusicPlayer onClick={onOpenCover} currentSong={currentSong} />
 
       <audio
+        preload="metadata" 
         ref={audioRef}
         src={currentSong?.track}
         onTimeUpdate={handleTimeUpdate}

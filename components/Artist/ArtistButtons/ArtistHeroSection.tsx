@@ -2,7 +2,15 @@ import Image , {StaticImageData}from "next/image"
 import ArtistName from "../ArtistName"
 import ArtistButtons from "./ArtistButtons"
 import images from "@/public/images"
+import type { Viewport } from "next";
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: 'cover',
+};
 interface ArtistHeroSectionProps {
   image: StaticImageData,
   artistname:string

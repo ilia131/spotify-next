@@ -2,11 +2,11 @@ import Image, { StaticImageData } from "next/image"
 import CardHeader from "./CardHeader"
 import BottomBigArtist from "./BottomBigArtist"
 
-interface ItemArtistProps {
+export interface ItemArtistProps {
    item: ItemsProps
 }
 
-interface ItemsProps {
+export interface ItemsProps {
   name:string ,
   pic:StaticImageData;
   bg:StaticImageData;
@@ -34,7 +34,10 @@ const BigCardArtist = ({item}:ItemArtistProps) => {
             unoptimized
           />
           <p className="absolute bottom-18.5 text-[12px] left-4 w-58.75 h-4.5 text-[rgba(255_255_255/0.60)] z-2">Pass the sticks & Press Play .</p>
-          <BottomBigArtist />
+          <div className="absolute bottom-4.75 left-4 right-4">     
+              <BottomBigArtist />
+          </div>
+
         </div>
     </div>
    </div>

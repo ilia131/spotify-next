@@ -8,7 +8,6 @@ import ArtistMiniCard from "../ArtistMiniCard/ArtistMiniCard";
 import { sectionsConfig } from "@/data/homeSection";
 import { mapItems } from "./utils";
 import BigCardArtist from "./BigCardArtist/BigCardArtist";
-import { useGetsongsQuery } from "@/redux/services/songsApiSlice";
 import { useArtistsQuery } from "@/redux/services/artistApislice";
 
 

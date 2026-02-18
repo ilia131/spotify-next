@@ -135,7 +135,7 @@ html, body, #__next {
 
 .hide-scrollbar {
   -ms-overflow-style: none;  /* Internet Explorer 10+ */
-  scrollbar-width: none;  /* Firefox */
+   scrollbar-width: none;  /* Firefox */
 }
 .hide-scrollbar::-webkit-scrollbar { 
   display: none;  /* Safari and Chrome */
@@ -143,7 +143,6 @@ html, body, #__next {
 
 
 @layer utilities {
-  /* اسکرول افقی با ارتفاع 20px */
   .scrollbar-x-20::-webkit-scrollbar {
     height: 20px;
   }

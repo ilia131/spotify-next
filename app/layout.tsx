@@ -19,7 +19,7 @@ export const viewport: Viewport = {
 
 
 export const metadata :Metadata = {
-  title: "My App",
+  title: "Vangify",
   description: "Next PWA",
   manifest: "/manifest.webmanifest",
 };

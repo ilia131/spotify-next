@@ -12,7 +12,7 @@ interface RefreshResponse {
 const mutex = new Mutex();
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'https://spotify-django-1.onrender.com/api',
+  baseUrl: 'http://127.0.0.1:8000/api',
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.accessToken;
     if (token) {

@@ -22,7 +22,7 @@ const MusicRowCard = ({item ,  songs , index} :MusicRowCardProps) => {
       onClick={handlePlay}
 
       >
-        <ImageMusicCard item={item} />
+        <ImageMusicCard item={item} index={index}/>
         <OptionCardMusic item={item} />
       </div>
   )

@@ -1,3 +1,4 @@
+import TimeNumber from "./TimeNumber";
 
 interface Props {
   progress: number;
@@ -19,9 +20,10 @@ const BarTimeMp = ({progress , lowerTime , higherTime , handleSeek}:Props) => {
           style={{ width: `${Math.min(progress, 100)}%` }}
         />
     </div>
-    <div className="flex w-full justify-between">
-        <p className="text-[rgba(255,255,255,0.75)] text-[12px]">{lowerTime}</p>
-        <p className="text-[rgba(255,255,255,0.75)] text-[12px]">{higherTime}</p>
+    <div className="flex w-full justify-between text-[12px]">
+        <TimeNumber timenumber={lowerTime} />
+        <TimeNumber timenumber={higherTime} />
+
      </div>
    </div>
   )
