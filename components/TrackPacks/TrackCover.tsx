@@ -6,13 +6,14 @@ interface Props {
 
 const TrackCover = ({cover}:Props) => {
   return (
-    <div className="w-27 h-19.75  flex items-center">
+    <div className="w-27 h-19.75  flex gap-0 items-center">
+     
     <Image 
         src={cover || images.hip2 }  
         width={79} 
         height={79} 
         alt="coverartist"
-        className="w-19.75 h-19.75 rounded-[5px] object-cover "
+        className="w-19.75 h-19.75 rounded-[5px] object-cover overflow-hidden"
         priority
    />
    <Image 
@@ -20,7 +21,7 @@ const TrackCover = ({cover}:Props) => {
         width={29} 
         height={61} 
         alt="coverartist"
-        className="w-7.25 h-15.25 max-[375px]:hidden"
+        className="w-7.25 h-15.25 max-[377px]:hidden"
    />
   </div> 
    )
