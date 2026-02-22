@@ -1,5 +1,5 @@
 import AvatarCircleCard from "../AvatarCircleCard/AvatarCircleCard";
-import Cards from "../Cards.tsx/Cards"
+import Cards from "../Cards/Cards"
 import   { StaticImageData } from "next/image"
 
 export interface CardSliderProps {

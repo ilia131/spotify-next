@@ -3,6 +3,9 @@ import images from "@/public/images";
  
 
 
+
+
+
 export const mediaLibrary: MediaLibrary = {
   cc: { picture: images.cc, desc: "Centeral Cee, Sprinter , Lilbaby,", name: 'Centeral Cee', profile_pic: images.cc, id: "cc", bio: "" },
   bilie: { picture: images.Bilie, desc: "Bilie, Bilie2, Bilie3, Bili3e, Bilie4", name: 'Bilie', profile_pic: images.Bilie, id: "bilie", bio: "" },

@@ -19,6 +19,9 @@ import kagan2 from './kagan2.png'
 import Cp from './Cyberpunk.jpg'
 import sinazza from './sinazza.png'
 import disc from './disc.png'
+import searchdisc from './searchdisc.png'
+import searchdisc2 from './searchdisc2.png'
+import searchdisc3 from './searchdisc3.png'
 const images = {
   Bilie,
   HipHopLogist,
@@ -40,7 +43,10 @@ const images = {
   kagan2,
   Cp,
   sinazza,
-  disc
+  disc, 
+  searchdisc,
+  searchdisc2,
+  searchdisc3,
 };
 
 export default images;

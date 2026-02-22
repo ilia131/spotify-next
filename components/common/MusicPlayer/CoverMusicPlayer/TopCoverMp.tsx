@@ -8,7 +8,7 @@ interface Props {
 const TopCoverMp = ({onClose}:Props) => {
   return (
     <div className="flex justify-between items-center [@media(max-height:800px)]:mt-20 ">
-    <DownArrow onClick={onClose} /> 
+    <DownArrow onClick={onClose} fill="white" fillOpacity="0.62"/> 
     <p className="text-[rgba(255,255,255,0.95)] text-[12px] font-medium">“dorcci” in Search</p>
     <ThreeCirlceFlex />
     </div>

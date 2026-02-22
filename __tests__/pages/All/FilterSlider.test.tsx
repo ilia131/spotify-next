@@ -8,7 +8,7 @@ import FilterSlider from "@/app/page";
 import { useNavSlider } from "@/hooks/useNavSlider/useNavSlider";
 import { usePathname, useRouter } from "next/navigation";
 import { MoreLikeCardProps } from "@/components/common/MoreLikeCard/MoreLikeCard";
-import { ItemProps } from "@/components/common/Cards.tsx/Cards";
+import { ItemProps } from "@/components/common/Cards/Cards";
 import { CardSectionProps } from "@/components/common/CardSection/CardSection";
 import { CardSliderProps } from "@/components/common/CardSlider/CardSlider";
 /* ===================== MOCKS ===================== */

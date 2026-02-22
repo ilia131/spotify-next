@@ -5,7 +5,7 @@ import { store } from "@/redux/store";
 import Music from "@/components/MusicFilterSlider/MusicFilterSlider";
 import { artists as musicArtists } from "@/components/FilterSlider/FilterSlider";
 import { CardSectionProps } from "@/components/common/CardSection/CardSection";
-import { ItemProps } from "@/components/common/Cards.tsx/Cards";
+import { ItemProps } from "@/components/common/Cards/Cards";
 import { CardSliderProps } from "@/components/common/CardSlider/CardSlider";
 import { MoreLikeCardProps } from "@/components/common/MoreLikeCard/MoreLikeCard";
 import { ItemArtistProps } from "@/components/FilterSlider/BigCardArtist/BigCardArtist";

@@ -5,11 +5,16 @@ import SearchHeader from '@/components/Search/SearchHeaders/SearchHeader';
 import SearchFilterSection from '@/components/Search/SearchFilter/SearchFilterSection';
 import SearchShortVideo from '@/components/Search/SearchShortVideo/SearchShortVideo';
 import SearchFilterAllCard from '@/components/Search/SearchFilter/SearchFilterAllCard';
+
+
+
+
+
 const categories = [
-  {name:'Music' , color:'bg-[rgba(219,21,140,1)]'},
-  {name:'Podcasts' , color:'bg-[rgba(185,93,8,1)]'},
-  {name:'Physics Packs' , color:'bg-[rgba(130,1,231,1)]'},
-  {name:'Live Events' , color:'bg-[rgba(30,50,100,1)]'},
+  {name:'Music' , color:'bg-linear-to-r from-[rgba(97,84,76,1)] to-[rgba(97,84,76,1)]' , img:images.searchdisc},
+  {name:'Podcasts' , color:'bg-linear-to-r from-[rgba(30,50,100,1)] to-[rgba(61,101,202,1)]' , img:images.searchdisc3},
+  {name:'Physics Packs' , color:'bg-linear-to-r from-[rgba(62,23,64,1)] to-[rgba(161,60,166,1)]' , img:images.searchdisc3},
+  {name:'Live Events' , color:'bg-linear-to-r from-[rgba(150,34,36,1)] to-[rgba(48,11,11,1)]' , img:images.searchdisc3},
 
 ]
 

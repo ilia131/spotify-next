@@ -1,8 +1,9 @@
+import { StaticImageData } from "next/image"
 import SearchFilterTitle from "../SearchFilterTitle"
 import SearchFilterCard from "./SearchFilterCard"
 
 interface Props {
-    categories:{name:string , color:string}[]
+    categories:{name:string , color:string , img:StaticImageData}[]
     title:string
 }
 
