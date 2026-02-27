@@ -6,6 +6,7 @@ import PWARegister from "./pwa-register";
 import "./globals.css";
 import Setup from "@/utils/authsetup/Setup";
 import type { Viewport } from "next";
+import MenuBar from "@/components/common/MenuBar/MenuBar";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -19,8 +20,8 @@ export const viewport: Viewport = {
 
 
 export const metadata :Metadata = {
-  title: "Vangify",
-  description: "Next PWA",
+  title: "Milify",
+  description: "Milify",
   manifest: "/manifest.webmanifest",
 };
 
@@ -37,11 +38,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={`${myFont.className}`}>
         <Provider>
-        <PWARegister />
+         <PWARegister />
+           <Setup />
 
-          <Setup />
              <RootClientLayout>{children}</RootClientLayout>
-        </Provider>
+          </Provider>
       </body>
     </html>
   );

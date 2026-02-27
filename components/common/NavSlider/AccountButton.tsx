@@ -1,12 +1,17 @@
+import { useAppDispatch } from "@/redux/hook";
+import { toggleMenu } from "@/redux/features/uiSlice";
+
 interface AccountButtonProps {
   label?: string;
-  onClick?: () => void;
 }
 
-const AccountButton = ({ label = "I", onClick }: AccountButtonProps) => {
+
+const AccountButton = ({ label = "I"}: AccountButtonProps) => {
+  const dispatch = useAppDispatch();
+
   return (
     <button
-      onClick={onClick}
+      onClick={() => dispatch(toggleMenu())}
       className="h-8.5 w-8.25 bg-[#121212] flex items-center justify-center"
       aria-label="Account"
     >

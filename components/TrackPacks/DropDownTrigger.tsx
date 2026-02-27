@@ -11,7 +11,7 @@ export function DropdownTrigger({ isOpen, onClick }: Props) {
       onClick={onClick}
       className={cn(
         "relative w-full h-5.75 flex items-center justify-center px-2 cursor-pointer transition-all",
-        "bg-linear-to-t from-[#44843C] to-[#31582b]",
+        "bg-[rgba(30,38,29,1)]",
         isOpen
           ? "rounded-t-[10px] border-x-[0.25px] border-t-[0.25px] border-white/50"
           : "rounded-[11px]"

@@ -19,8 +19,8 @@ export  const tracks : Track[] = [
       title: "New Documentary in the Swedish Radio App",
       progress: 33,
       duration: "3:33",
-      cover: images.hip2,
-      bg:'bg-[rgba(10,33,50,1)]'
+      cover: images.vini,
+      bg:'bg-[rgba(30,38,29,1)]'
   
     },
     {
@@ -30,8 +30,8 @@ export  const tracks : Track[] = [
       title: "New Documentary in the Swedish Radio App",
       progress: 33,
       duration: "3:33",
-      cover: images.hip2,
-      bg:'bg-[rgba(10,33,50,1)]'
+      cover: images.dorcci2,
+      bg:'bg-[rgba(30,38,29,1)]'
   
     },
     {
@@ -41,8 +41,8 @@ export  const tracks : Track[] = [
       title: "New Documentary in the Swedish Radio App",
       progress: 33,
       duration: "3:33",
-      cover: images.hip3,
-      bg:'bg-[rgba(10,33,50,1)]'
+      cover: images.sinazza,
+      bg:'bg-[rgba(30,38,29,1)]'
     },
     {
       id: "track-4",
@@ -52,6 +52,6 @@ export  const tracks : Track[] = [
       progress: 33,
       duration: "3:33",
       cover: images.HipHopLogist,
-      bg:'bg-[rgba(10,33,50,1)]'
+      bg:'bg-[rgba(30,38,29,1)]'
     },
   ]

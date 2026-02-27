@@ -8,7 +8,7 @@ const CardAlbum = () => {
   return (
 
     <div className="h-112.25 max-lg:w-89.75 max-md:w-full rounded-2xl py-3.75
-    px-3 bg-[rgba(8,60,38,1)] flex flex-col items-center gap-4
+    px-3 bg-[rgba(30,38,29,1)] flex flex-col items-center gap-4
     ">
       <TopCardAlbum />
       <Image

@@ -11,7 +11,7 @@ export function DropdownContent({ isOpen }: Props) {
     <div
       className={cn(
         "rounded-b-[10px]",
-        "bg-linear-to-t from-[#44843C] to-[#31582b]",
+        "bg-[rgba(217,217,217 0.2)]",
         "backdrop-blur-sm border border-white/30",
         "flex flex-col gap-2.5",
         "animate-in fade-in slide-in-from-top-1 duration-200"
