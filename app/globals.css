@@ -1,0 +1,188 @@
+@import "tailwindcss";
+
+
+
+
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/Poppins/Poppins-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  
+}
+
+@font-face {
+  font-family: 'Inter2';
+  src: url('/fonts/Inter2.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  
+}
+
+/* @font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/Poppins-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/Poppins-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/Poppins-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+} */
+
+
+.glassmorphism-preview {
+  background: rgba(255, 255, 255, 0.1); /* پس‌زمینه شفاف */
+  backdrop-filter: blur(10px); /* بلور کردن پس‌زمینه */
+  -webkit-backdrop-filter: blur(10px); /* برای سازگاری با سافاری */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* حاشیه نازک */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* سایه ملایم */
+  border-radius: 20px; /* گوشه‌های گرد */
+}
+
+
+
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.animate-slideUp {
+  animation: slideUp 0.3s ease-out;
+}
+
+
+:root {
+  overflow-x: hidden;
+
+
+}
+
+body {
+  background: #121212;
+  color: var(--foreground);
+  margin: 0;
+  padding: 0;
+  
+  padding-bottom: env(safe-area-inset-bottom);
+  box-sizing: border-box;
+  /* width: screen;
+  
+  height: screen; */
+  
+}
+
+@keyframes pulseGlow {
+  0% {
+    opacity: 0.35;
+    transform: scale(0.9);
+  }
+
+  50% {
+    opacity: 0.55;
+    transform: scale(1.1);
+  }
+
+  100% {
+    opacity: 0.35;
+    transform: scale(0.9);
+  }
+}
+
+
+
+@supports (padding-top: env(safe-area-inset-top)) {
+  body {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  .full-bleed {
+    margin-top: calc(-1 * env(safe-area-inset-top));
+    padding-top: env(safe-area-inset-top);
+    margin-bottom: calc(-1 * env(safe-area-inset-bottom));
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+html, body, #__next {
+  height: 100dvh;          
+  min-height: -webkit-fill-available;
+}
+
+
+
+*::-webkit-scrollbar {
+  
+  width: 15px;
+}
+
+*::-moz-scrollbar {
+  width: 12px;
+  height: 12px; 
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+  min-height: 2px;
+
+}
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+  
+}
+*::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+
+
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+   scrollbar-width: none;  /* Firefox */
+}
+.hide-scrollbar::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
+}
+
+
+@layer utilities {
+  .scrollbar-x-20::-webkit-scrollbar {
+    height: 20px;
+  }
+
+  .scrollbar-x-20::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-x-20::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .scrollbar-x-20::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+  }
+}

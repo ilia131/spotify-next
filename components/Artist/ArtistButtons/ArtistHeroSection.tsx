@@ -1,0 +1,40 @@
+import Image from "next/image"
+import ArtistName from "../ArtistName"
+import ArtistButtons from "./ArtistButtons"
+import images from "@/public/images"
+import type { Viewport } from "next";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: 'cover',
+};
+interface ArtistHeroSectionProps {
+  image: string | undefined,
+  artistname:string | undefined
+}
+
+const ArtistHeroSection = ({
+  image,
+  artistname,
+}:ArtistHeroSectionProps) => {
+  return (
+    <section className="relative w-full h-117 overflow-hidden -mt-[env(safe-area-inset-top)]">
+    <Image
+      src={image || images.kagan2}
+      alt="kagan"
+      fill
+      className="object-cover "
+      fetchPriority="high"
+
+      priority
+    />
+    <ArtistName artistname={artistname} />
+    <ArtistButtons />
+  </section>
+  )
+}
+
+export default ArtistHeroSection

@@ -1,0 +1,40 @@
+import Image from "next/image"
+import PlusIcons from "./PlusIcons"
+
+interface CardHeaderProps {
+    coverSrc: string;
+    title:string;
+    subtitle:string
+}
+
+
+const CardHeader = ({ coverSrc, title, subtitle }:CardHeaderProps) => {
+  return (
+    <div className="absolute z-10 flex gap-3.5 pl-4 pt-4.25 right-2.75 left-0 ">
+      <Image
+        src={coverSrc}
+        alt="Music cover"
+        width={72}
+        height={67}
+        className="w-18 h-16.75 rounded-[3px]"
+        unoptimized
+      />
+
+      <div className="flex flex-col flex-1 " >
+        <div className="flex items-center pr-2.75 justify-between 
+        ">
+          <h1 className="text-[22px]  font-semibold text-white/90 max-[390px]:text-[20px] max-[350px]:text-[18px] max-[330px]:text-[16px]">
+            {title}
+          </h1>
+           <PlusIcons />
+        </div>
+
+        <p className="text-[13px] text-white/60">
+          {subtitle}
+        </p>
+      </div>
+    </div>
+  )
+}
+
+export default CardHeader
