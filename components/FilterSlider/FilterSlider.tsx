@@ -6,7 +6,6 @@ import CardSection from "@/shared/CardSection/CardSection";
 import MoreLikeCard from "@/shared/MoreLikeCard/MoreLikeCard";
 import ArtistMiniCard from "../ArtistMiniCard/ArtistMiniCard";
 
-import { mapItems } from "./utils";
 import { SectionConfig } from "@/data/homeSection";
 import BigCardArtist from "./BigCardArtist/BigCardArtist";
 import { useArtistsQuery, useGetFreshTrackQuery, useGetPopularAlbumQuery, useGetTredingTrackQuery } from "@/redux/services/artistApislice";
@@ -27,11 +26,7 @@ export default function FilterSlider() {
   const {data: FreshTrack } = useGetFreshTrackQuery();
   const {data : Trending} = useGetTredingTrackQuery();
   const {data : PopularAlbum} = useGetPopularAlbumQuery()
-  const otherSections = sectionsConfig.filter(
-    (section) =>
-      section.title !== "Made For ilia gholami !" &&
-      section.title !== "Popular Albums"
-  );
+
 
 
   const sliderData = data ;
@@ -48,31 +43,40 @@ export default function FilterSlider() {
     <div className="pl-4 relative hide-scrollbar pb-24 pt-23.25">
       
       <ArtistMiniCard />
-       <CardSection 
-        title="Fresh Track Friday!" 
-        items={FreshTrack ?? []}
-        />
-        <CardSection
-          title="Trending Hits"
-          items={Trending ?? []}
-        />
+      
+      {FreshTrack && FreshTrack.length !== 0 && (
+          <CardSection
+            title="Fresh Track Friday!"
+            items={FreshTrack ?? []}
+          />
+        )}
+      {Trending && Trending.length !== 0 && (
+         <CardSection
+         title="Trending Hits"
+         items={Trending ?? []}
+       />
+      )}
+       
      
-
-      <CardSectionPA 
-               title="Popular Albums"
-               items={PopularAlbum ?? []}
-      />
+     {PopularAlbum && PopularAlbum.length !== 0 && (
+        <CardSectionPA 
+        title="Popular Albums"
+        items={PopularAlbum ?? []}/>
+     )}
+    
 
       <MoreLikeCard
         images={images.HipHopLogist}
         subtitle="More Like"
         label="Hiphopolgist"
       />
-
-      <CardSlider
-        cardimages={sliderData}
-        title=""
-      />
+      {sliderData && sliderData.length !== 0 && (
+       <CardSlider
+       cardimages={sliderData}
+       title=""
+     />
+      )}
+      
 
       {data?.map((artist) => (
         <BigCardArtist

@@ -44,7 +44,9 @@ export default function BrowseLayout({ children }: { children: React.ReactNode }
               <Suspense fallback={<BrowseLoading />}>
                 {children}
               </Suspense>
+              
           </div>
-          </section>
+        
+     </section>
   );
 }

@@ -8,4 +8,4 @@ export const songidApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetsongidQuery} = songidApiSlice;
+export const { useGetsongidQuery } = songidApiSlice;

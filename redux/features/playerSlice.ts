@@ -2,6 +2,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Shorts } from "../services/artistApislice";
 
 export type Song = {
+  album_name: string;
+  song: never;
   id: number;
   title: string;
   artist: number;
@@ -10,11 +12,13 @@ export type Song = {
   image_url: string;
   unique_id: string;
   play_count: string;
+  
   artistname?: string;
   shorts:Shorts[]
   lyrics?: {time:number , line:string}[]
-  artists:string
+  artists:string[]
   description: string;
+  type?:string
 };
 
 type PlayerState = {

@@ -7,9 +7,13 @@ interface MusicRowCardProps {
   item: Song;
   songs: Song[];
   index: number;
+  isPlaylistView?: boolean;
+  playlistId?: string;
+
+
 }
 
-const MusicRowCard = ({item ,  songs , index} :MusicRowCardProps) => {
+const MusicRowCard = ({item ,  songs , index , isPlaylistView , playlistId} :MusicRowCardProps) => {
   const dispatch = useAppDispatch();
 
 
@@ -25,7 +29,10 @@ const MusicRowCard = ({item ,  songs , index} :MusicRowCardProps) => {
 
       >
         <ImageMusicCard item={item} index={index}/>
-        <OptionCardMusic item={item} />
+        <OptionCardMusic item={item} isPlaylistView={isPlaylistView}
+                    playlistId={playlistId}
+
+        />
       </div>
   )
 }

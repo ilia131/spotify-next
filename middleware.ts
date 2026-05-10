@@ -73,6 +73,7 @@ export const config = {
     "/library/:path*",
     "/explore/:path*",
     "/",
+    "/artist/:path*",
     "/popular-albums/:path*",
     "/fresh-track/:path*",
     "/trending/:path",

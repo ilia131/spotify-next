@@ -20,38 +20,16 @@ const categories = [
 ]
 
 
-const shortvideo = [
-  {musicname:'SAVE ME!', cover:images.hip3},
-  {musicname:'NARO !', cover:images.hip2},
-  {musicname:'Belaad Party', cover:images.HipHopLogist},
-  
-]
-
-
-const categories2 = [
-  {cover:images.hip2},
-  {cover:images.Kagan},
-  {cover:images.dorcci2},
-  {cover:images.hip2},
-  {cover:images.hip2},
-  {cover:images.hip2},
-  {cover:images.hip2},
-  {cover:images.hip2},
-  {cover:images.hip2},
-
-  {cover:images.hip2},
 
 
 
 
-]
 
 
 
 const Search = () => {
   const [scrolled, setScrolled] = useState(false);
   const { data} = useGetShortVideoQuery(3)
-   console.log(data)
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 40);
@@ -64,7 +42,7 @@ const Search = () => {
           <SearchHeader scrolled={scrolled} />
           <SearchFilterSection categories={categories} title='Start browsing' />
           <SearchShortVideo shortvideo={data?.results.slice(0,3)} title='Start browsing' />
-          <SearchFilterAllCard categories2={categories2} title='Start browsing' />
+          <SearchFilterAllCard  title='Start browsing' />
        </div>
    
   )

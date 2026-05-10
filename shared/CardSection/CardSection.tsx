@@ -13,7 +13,7 @@ const CardSection = <T,>({ title, items }: CardSectionProps<T>) => {
     <section className="pt-5.75 grid gap-3 relative overflow-hidden">
       <SectionTitle title={title} />
 
-      {title === "Fresh Track Friday!" || title === "Trending Hits"
+      {title === "Fresh Track Friday!" || title === "Trending Hits" || title === "Made For You"
         ? <TrackCardSlider cardimages={items as Song[]} title={title} />
         : <CardSlider cardimages={items as Artist[]} title={title} />}
     </section>

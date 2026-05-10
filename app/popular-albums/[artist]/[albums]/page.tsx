@@ -8,7 +8,9 @@ import { useParams } from "next/navigation"
 const PopularAlbums = () => {
   const params = useParams()
   const artist = params.artist as string
+
   const albums = params.albums as string
+
   const { data: detailPA, isLoading } = useGetPopularAlbumDetailQuery({ 
     artist, 
     albums 
@@ -16,6 +18,7 @@ const PopularAlbums = () => {
     skip: !artist || !albums
   });
   const coverimage = detailPA?.[0]?.cover
+
 
   return (
     <div className="grid pb-50 overflow-hidden"

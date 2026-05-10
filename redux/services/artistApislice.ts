@@ -21,6 +21,7 @@ export type ArtistPickProps2 = {
   image: string;
   title: string;
 };
+
 export type Artist = {
   id: number;
   artistname: string;
@@ -30,6 +31,8 @@ export type Artist = {
   shorts:Shorts[]
   bio:string
   artist_pick:ArtistPickProps2
+  monthly_listeners: number
+  uuid:string
 };
 
 export type Album = {
@@ -60,7 +63,7 @@ export const ArtistApiSlice = apiSlice.injectEndpoints({
     getSongPlayer: builder.query<Song, string>({
       query: (unique_id) => `player/${unique_id}/`,
     }),
-
+   
     listenSong: builder.mutation<{ success: boolean },{ id: string; seconds: number }>({
     query: ({ id, seconds }) => {
       return {
@@ -70,19 +73,50 @@ export const ArtistApiSlice = apiSlice.injectEndpoints({
       };
     },
     }),
-    getFreshTrack: builder.query<Song[], void>({
+  getFreshTrack: builder.query<Song[], void>({
       query: () => `fresh-tracks/`,
     }),
-    getTredingTrack: builder.query<Song[], void>({
+  getTredingTrack: builder.query<Song[], void>({
       query: () => `trending/`,
     }),
-    getPopularAlbum: builder.query<Album[], void>({
+  getPopularAlbum: builder.query<Album[], void>({
       query: () => `albums/popular/`,
     }),
-    getPopularAlbumDetail: builder.query< Album[],{ artist: string; albums: string }>({
+   getPopularAlbumDetail: builder.query<Album[],{ artist: string; albums: string }>({
     query: ({ artist, albums }) =>
       `albums/popular/detail/?title=${albums}&artist=${artist}`,
   }),
+  getAlbumDetail: builder.query<Album,{ artist: string; albums: string }>({
+    query: ({ artist, albums }) =>
+      `album/${artist}/${albums}/`,
+  }),
+  getArtistsList: builder.query({
+    query: () => "/artistslist/",
+  }),
+
+  getFavArtists: builder.query({
+    query: () => "me/favorite-artists/",
+    providesTags: ["FavoriteArtists"],
+  }),
+  
+  addFavArtist: builder.mutation({
+    query: (artistname: string) => ({
+      url: "me/favorite-artists/",
+      method: "POST",
+      body: { artistname },
+    }),
+    invalidatesTags: ["FavoriteArtists"],
+  }),
+  
+  removeFavArtist: builder.mutation({
+    query: (artistname: string) => ({
+      url: "me/favorite-artists/",
+      method: "DELETE",
+      body: { artistname },
+    }),
+    invalidatesTags: ["FavoriteArtists"],
+  }),
+
   getShortVideo: builder.query({
     query: (params) => ({
       url: "shorts/explore/",
@@ -91,12 +125,16 @@ export const ArtistApiSlice = apiSlice.injectEndpoints({
   }),
 
   getShortVideoDetail: builder.query<Shorts , string>({
-    query: (unique_id) => `shorts/${unique_id}/`,
-  }),
+       query: (unique_id) => `shorts/${unique_id}/`,
+    }),
   }),
 });
 
 export const {
+  useAddFavArtistMutation,
+  useRemoveFavArtistMutation,
+  useGetFavArtistsQuery,
+  useGetArtistsListQuery,
   useLazyGetShortVideoQuery,
   useGetShortVideoDetailQuery,
   useGetShortVideoQuery,
@@ -109,4 +147,5 @@ export const {
   useGetTredingTrackQuery,
   useGetPopularAlbumQuery,
   useGetPopularAlbumDetailQuery,
+  useGetAlbumDetailQuery,
 } = ArtistApiSlice;

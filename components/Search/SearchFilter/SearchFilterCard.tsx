@@ -16,11 +16,7 @@ const SearchFilterCard = ({item , i}:Props) => {
           <p className="text-[10px] font-semibold text-[rgba(255,255,255,0.8)]">{item.name}</p>
           <span className="text-[7px] text-[rgba(255,255,255,0.44)]">Stay in the Moment with the Hottest Live Events!</span>
         </div>
-        <div className="flex pt-1 w-8.25">
-        <Image src={item.img} width={33} height={33} alt='imgelemntdisc' 
-        className="h-8.25 w-8.25 object-cover"
-         />
-        </div>
+
     </div>
   )
 }

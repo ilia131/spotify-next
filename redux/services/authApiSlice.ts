@@ -6,6 +6,24 @@ interface User {
 	email: string;
 }
 
+type RegisterRequest = {
+	first_name: string
+	last_name: string
+	username: string
+	email: string
+	password: string
+	re_password: string
+	favorite_artists: string[]
+  }
+  
+  type RegisterResponse = {
+	id: number
+	email: string
+	username: string
+	first_name: string
+	last_name: string
+	favorite_artists?: string[]
+  }
 
 
 const authApiSlice = apiSlice.injectEndpoints({
@@ -20,18 +38,12 @@ const authApiSlice = apiSlice.injectEndpoints({
 				body: { email, password },
 			}),
 		}),
-		register: builder.mutation({
-			query: ({
-				first_name,
-				last_name,
-				email,
-				password,
-				re_password,
-			}) => ({
-				url: '/users/',
-				method: 'POST',
-				body: { first_name, last_name, email, password, re_password },
-			}),
+		register: builder.mutation<RegisterResponse, RegisterRequest>({
+		query: (body) => ({
+			url: "/users/",
+			method: "POST",
+			body,
+		}),
 		}),
 		verify: builder.mutation({
 			query: (body) => ({

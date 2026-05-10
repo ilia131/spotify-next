@@ -1,13 +1,12 @@
 "use client"
 import images from "@/public/images";
-import CardSlider from "@/shared/CardSlider/CardSlider";
 import CardSection from "@/shared/CardSection/CardSection";
 import MoreLikeCard from "@/shared/MoreLikeCard/MoreLikeCard";
-import { sectionsConfig } from "@/data/homeSection";
-import { mapItems } from "@/components/FilterSlider/utils";
+
 import RecentMusics from "./RecentMusics";
 import BigCardArtist from "../FilterSlider/BigCardArtist/BigCardArtist";
 import { useArtistsQuery } from "@/redux/services/artistApislice";
+import { useGetForYouQuery } from "@/redux/services/songApiSlice";
 
 export const artists = [
   {pic:images.hip3, bg:images.hip2 , name:'HipHopologist'},
@@ -18,22 +17,15 @@ export const artists = [
 ]
 const Music = () => {
   const { data, error, isLoading } = useArtistsQuery();
+  const { data : ForYou} = useGetForYouQuery(0)
 
-  const specialSections = sectionsConfig.filter(
-    (section) =>
-      section.title === "Made For ilia gholami !" 
-    // ||
-      // section.title === "Popular Albums"
-  );
+  
   return (
     <div className="pl-4 relative hide-scrollbar pb-24 pt-15 overflow-hidden">
-      {specialSections.map((section) => (
-            <CardSection
-              key={section.title}
-              title={section.title}
-              items={mapItems(section.items)}
-            />
-        ))}
+        <CardSection
+            title="Made For You"
+            items={ForYou ?? []}
+          />
           <RecentMusics />
           <MoreLikeCard 
                 images={images.HipHopLogist}

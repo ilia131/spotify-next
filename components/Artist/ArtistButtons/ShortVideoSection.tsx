@@ -8,9 +8,10 @@ import { setVideoPlaying } from '@/redux/features/playerSlice';
 
 interface ShortVideosProps {
   shortvideo?: Shorts[];
+  artistname:string
 }
 
-const ShortVideoSection = ({ shortvideo }: ShortVideosProps) => {
+const ShortVideoSection = ({ shortvideo  , artistname}: ShortVideosProps) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const dispatch = useAppDispatch();
 
@@ -18,7 +19,7 @@ const ShortVideoSection = ({ shortvideo }: ShortVideosProps) => {
 
   return (
     <section className="grid pl-4.5 pt-5.25 pr-4 gap-2.25">
-      <TitleMusic title="Clips from Ashkan Kagan" />
+      <TitleMusic title={`Clips from ${artistname}`} />
 
       <div className="flex h-45.75 gap-4.5">
         {videos.map((item, i) => (

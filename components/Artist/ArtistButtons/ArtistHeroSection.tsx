@@ -3,6 +3,7 @@ import ArtistName from "../ArtistName"
 import ArtistButtons from "./ArtistButtons"
 import images from "@/public/images"
 import type { Viewport } from "next";
+import { Artist } from "@/redux/services/artistApislice";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -14,16 +15,18 @@ export const viewport: Viewport = {
 interface ArtistHeroSectionProps {
   image: string | undefined,
   artistname:string | undefined
+  data:Artist
 }
 
 const ArtistHeroSection = ({
   image,
   artistname,
+  data
 }:ArtistHeroSectionProps) => {
   return (
     <section className="relative w-full h-117 overflow-hidden -mt-[env(safe-area-inset-top)]">
     <Image
-      src={image || images.kagan2}
+      src={image ?? 'item.jpg'}
       alt="kagan"
       fill
       className="object-cover "
@@ -32,7 +35,7 @@ const ArtistHeroSection = ({
       priority
     />
     <ArtistName artistname={artistname} />
-    <ArtistButtons />
+    <ArtistButtons data={data}  />
   </section>
   )
 }
