@@ -1,6 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Shorts } from "../services/artistApislice";
 
+export type Lyrics = {
+  time:number,
+  line:string
+}
+
+
 export type Song = {
   album_name: string;
   song: never;
@@ -12,10 +18,10 @@ export type Song = {
   image_url: string;
   unique_id: string;
   play_count: string;
-  
+  is_subscription_only: boolean
   artistname?: string;
   shorts:Shorts[]
-  lyrics?: {time:number , line:string}[]
+  lyrics?: Lyrics[]
   artists:string[]
   description: string;
   type?:string
@@ -118,6 +124,16 @@ const playerSlice = createSlice({
       state.buffered = buffered * 100;
       state.progress = duration ? (currentTime / duration) * 100 : 0;
     },
+    playSingleSong: (
+      state,
+      action: PayloadAction<Song>
+    ) => {
+      state.queue = [action.payload];
+      state.currentSong = action.payload;
+      state.currentIndex = 0;
+      state.isPlaying = true;
+      state.mediaType = "music";
+    }
   },
 });
 
@@ -129,7 +145,9 @@ export const {
   setVolume,
   setTimeData,
   setPlayerColor,
-  setVideoPlaying
+  setVideoPlaying,
+  playSingleSong,
+
 
 } = playerSlice.actions;
 

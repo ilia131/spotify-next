@@ -27,16 +27,11 @@ const Music = () => {
             items={ForYou ?? []}
           />
           <RecentMusics />
-          <MoreLikeCard 
-                images={images.HipHopLogist}
-                subtitle="More Like"
-                label="Hiphopolgist"
-          />
           {/* <CardSlider
                cardimages={mapItems(["gucci", "dorcci2", "vini"])}
                title=""
             /> */}
-             {data?.map((artist , i)=>(
+             {/* {data?.map((artist , i)=>(
                 <BigCardArtist 
                 key={artist.id}
                 item={{
@@ -44,7 +39,7 @@ const Music = () => {
                   pic: artist.profile_pic,
                   bg: artist.background,
                 }}/>
-            ))}
+            ))} */}
     </div>
   )
 }

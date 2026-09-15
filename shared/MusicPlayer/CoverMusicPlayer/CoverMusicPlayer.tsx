@@ -8,7 +8,8 @@ interface Props {
   higherTime:string
   handleSeek:(e: React.MouseEvent<HTMLDivElement>) => void
   buffered:number
-
+  onNext: ()=>void;
+  onPrevious  : ()=>void;
 }
 
 const CoverMusicPlayer = ({ 
@@ -18,16 +19,20 @@ const CoverMusicPlayer = ({
   lowerTime , 
   higherTime,
   handleSeek,
-  buffered
+  buffered,
+  onNext,
+  onPrevious ,
 }: Props) => { 
    return <CoverMpLayout
           buffered={buffered} 
           onClose={onClose} 
           progress={progress} 
+          onPrevious={onPrevious}
           currentSong={currentSong} 
           higherTime={higherTime} 
           lowerTime={lowerTime} 
           handleSeek={handleSeek}
+          onNext={onNext}
           />
 }
 

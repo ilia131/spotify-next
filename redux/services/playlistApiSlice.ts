@@ -1,83 +1,143 @@
-import { Song } from '../features/playerSlice';
-import { apiSlice } from './apiSlice';
+import { Song } from "../features/playerSlice";
+import { apiSlice } from "./apiSlice";
 
 export interface SongItem {
-  song: Song
+  song: Song;
 }
 
 export interface Playlist {
   id: number;
   name: string;
   unique_id: string;
-  tracks_count?: number
+  tracks_count?: number;
   tracks: SongItem[];
 }
 
 export interface PlaylistTrack {
   id: number;
-  name: string
-  tracks: Song[];
-  added_at: string;
-  position: number | null;
+  name: string;
+  unique_id: string;
+  tracks: SongItem[];
+  tracks_count?: number;
+  added_at?: string;
+  position?: number | null;
 }
 
 export const playlistApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-
-    // --- ساخت پلی‌لیست ---
+    // =========================
+    // Create Playlist
+    // =========================
     createPlaylist: builder.mutation({
       query: (data) => ({
         url: `/playlists/`,
         method: "POST",
         body: data,
       }),
+
       invalidatesTags: ["Playlists"],
     }),
 
-    // --- اضافه کردن آهنگ ---
+    // =========================
+    // Add Track To Playlist
+    // =========================
     addTrackToPlaylist: builder.mutation({
-      query: ({ playlistId, song_uuid }) => ({
+      query: ({
+        playlistId,
+        song_uuid,
+      }: {
+        playlistId: string | number;
+        song_uuid: string;
+      }) => ({
         url: `/playlists/${playlistId}/add-track/`,
         method: "POST",
-        body: { song_uuid },
+        body: {
+          song_uuid,
+        },
       }),
+
       invalidatesTags: (result, error, { playlistId }) => [
-        { type: "Playlists", id: playlistId },
+        "Playlists",
+        {
+          type: "Playlists",
+          id: String(playlistId),
+        },
       ],
     }),
 
+    // =========================
+    // Remove Track
+    // =========================
     removeTrackFromPlaylist: builder.mutation({
-      query: ({ playlistId, song_uuid }) => ({
+      query: ({
+        playlistId,
+        song_uuid,
+      }: {
+        playlistId: string | number;
+        song_uuid: string;
+      }) => ({
         url: `/playlists/${playlistId}/remove-track/`,
         method: "POST",
-        body: { song_uuid },
+        body: {
+          song_uuid,
+        },
       }),
+
       invalidatesTags: (result, error, { playlistId }) => [
-        { type: "Playlists", id: playlistId },
+        "Playlists",
+        {
+          type: "Playlists",
+          id: String(playlistId),
+        },
       ],
     }),
 
-    // --- لیست پلی‌لیست‌های کاربر ---
-    getUserPlaylists: builder.query<Playlist[], number>({
+    // =========================
+    // User Playlists
+    // =========================
+    getUserPlaylists: builder.query<Playlist[], number | void>({
       query: () => `/playlists/`,
-      providesTags: ["Playlists"],
-    }),
 
-    // --- دریافت یک پلی‌لیست ---
-    getPlaylistById: builder.query<PlaylistTrack, string>({
-      query: (playlistId) => `/playlists/${playlistId}/`,
-      providesTags: (result, error, id) => [
-        { type: "Playlists", id },
+      providesTags: (result) => [
+        "Playlists",
+
+        ...(result ?? []).map((playlist) => ({
+          type: "Playlists" as const,
+          id: String(playlist.unique_id),
+        })),
+
+        ...(result ?? []).map((playlist) => ({
+          type: "Playlists" as const,
+          id: String(playlist.id),
+        })),
       ],
     }),
 
+    // =========================
+    // Single Playlist
+    // =========================
+    getPlaylistById: builder.query<
+      PlaylistTrack,
+      string
+    >({
+      query: (playlistId) =>
+        `/playlists/${playlistId}/`,
+
+      providesTags: (result, error, playlistId) => [
+        "Playlists",
+        {
+          type: "Playlists",
+          id: String(playlistId),
+        },
+      ],
+    }),
   }),
 });
 
-export const { 
+export const {
   useCreatePlaylistMutation,
   useAddTrackToPlaylistMutation,
   useRemoveTrackFromPlaylistMutation,
   useGetUserPlaylistsQuery,
-  useGetPlaylistByIdQuery
+  useGetPlaylistByIdQuery,
 } = playlistApiSlice;

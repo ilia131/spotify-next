@@ -13,6 +13,7 @@ const FreshTrack = () => {
       <FreshTrackHero 
        image={imagefirst}
       />
+      <div className="h-5 w-full"></div>
       <FreshTrackRows 
         songs={data ?? []}
       />

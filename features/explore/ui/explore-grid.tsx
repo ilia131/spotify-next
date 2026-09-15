@@ -21,7 +21,6 @@ interface Props {
 
 const ExploreGrid = ({ onOpen }: Props) => {
   const { videos, thumbnails, loadVideos, loadMore, loading } = useShortVideos();
-
   const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
   const itemRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
@@ -60,7 +59,7 @@ const ExploreGrid = ({ onOpen }: Props) => {
         </div>
       )}
 
-      {videos.length === 0 && <ExploreSkeleton />}
+      {/* {videos.length === 0 && <ExploreSkeleton />} */}
 
       <div className="grid grid-cols-3 auto-rows-[140px] gap-0.5">
         {videos.slice(0, renderCount).map((video, index) => {

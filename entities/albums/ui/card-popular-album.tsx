@@ -4,7 +4,6 @@ import { useState } from "react"
 
 import Link from "next/link"
 import { Album } from "@/redux/services/artistApislice"
-import { artists } from "@/components/MusicFilterSlider/MusicFilterSlider"
 interface CardProps {
     item:Album 
 }

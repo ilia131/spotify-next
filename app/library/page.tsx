@@ -55,6 +55,7 @@ const Library = () => {
     );
   }, [artists, normalizedSearch, showArtists]);
 
+
   const filteredPlaylists = useMemo(() => {
     if (!showPlaylists) return [];
 

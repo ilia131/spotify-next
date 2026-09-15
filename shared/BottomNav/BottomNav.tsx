@@ -5,6 +5,7 @@ import { useState } from "react";
 import Logo from "../Logo/Logo";
 import ButtonBottomNav from "./ButtonBottomNav";
 import { usePathname } from "next/navigation";
+
 export default function BottomNav() {
   const [active, setActive] = useState("home");
   const pathname = usePathname();
@@ -12,33 +13,79 @@ export default function BottomNav() {
   const isBlurNav = ["/search", "/library", "/explore"].includes(pathname);
 
   const navItems = [
-    { name: "home", icon: <Home size={24} />, label: "Home", href: "/" },
-    { name: "search", icon: <Search size={24} />, label: "Search", href: "/search" },
-    { name: "library", icon: <Library size={24} />, label: "Library", href: "/library" },
-    { name: "explore", icon: <Logo />, label: "Explore", href: "/explore" },
+    {
+      name: "home",
+      icon: <Home size={24} />,
+      label: "Home",
+      href: "/",
+    },
+    {
+      name: "search",
+      icon: <Search size={24} />,
+      label: "Search",
+      href: "/search",
+    },
+    {
+      name: "library",
+      icon: <Library size={24} />,
+      label: "Library",
+      href: "/library",
+    },
+    {
+      name: "explore",
+      icon: <Logo />,
+      label: "Explore",
+      href: "/explore",
+    },
   ];
 
   return (
     <section className="flex justify-center">
-      <div className="flex flex-col fixed  w-110 max-[440px]:w-full   bottom-0    z-3 " >
-      <div  className="   h-3 bottom-22 bg-linear-to-t from-[#121212] to-transparent z-3"/>
-      <div 
-        className={`
-          flex justify-around items-center h-22 pb-5 z-50
-          ${isBlurNav
-            ? "bg-[rgba(0,0,0,0.7)] backdrop-blur-xs" 
-            : " bg-[#121212]"}
-        `}>
+      <div className="fixed bottom-0 z-40 flex w-[440px] flex-col max-[440px]:w-full">
+        
+        {/* Fade Top */}
+        <div
+          className={`h-4 ${
+            isBlurNav
+              ? "bg-gradient-to-t from-black/40 to-transparent"
+              : "bg-gradient-to-t from-[#121212] to-transparent"
+          }`}
+        />
 
-      {navItems.map((item) => ( 
-         <ButtonBottomNav
-            key={item.name}       
-            item={item}
-            setActive={setActive}
-            active={active}
-/>      ))}
-    </div>
-    </div>
+        {/* Navigation */}
+        <div
+          className={`
+            flex h-22 items-center justify-around pb-5
+            transition-all duration-300
+
+            ${
+              isBlurNav
+                ? `
+                  bg-black/30
+                  backdrop-blur-2xl
+                  border-t border-white/10
+                  shadow-[0_-8px_32px_rgba(0,0,0,0.25)]
+                `
+                : `
+                  bg-gradient-to-t
+                  from-[#121212]
+                  via-[#121212]
+                  to-[#181818]
+                  border-t border-white/5
+                `
+            }
+          `}
+        >
+          {navItems.map((item) => (
+            <ButtonBottomNav
+              key={item.name}
+              item={item}
+              active={active}
+              setActive={setActive}
+            />
+          ))}
+        </div>
+      </div>
     </section>
   );
 }

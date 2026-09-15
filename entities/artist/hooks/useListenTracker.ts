@@ -1,114 +1,196 @@
-import { useRef, useEffect } from "react";
-import { useListenSongMutation } from "@/redux/services/artistApislice";
-import { Song } from "@/redux/features/playerSlice";
+import {
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 
-export function useListenTracker(song:Song) {
+import {
+  useListenSongMutation,
+} from "@/redux/services/artistApislice";
 
-  const listenSentRef = useRef(false);
-  const listenedRef = useRef(0);
-  const totalListenedRef = useRef(0);
-  const lastTimeRef = useRef(0);
-  const exitSentRef = useRef(false);
-  const prevSongIdRef = useRef<string | null>(null);
+import {
+  Song,
+} from "@/redux/features/playerSlice";
 
-  const [listenSong] = useListenSongMutation();
+import {
+  ListenTrackingService,
+} from "./tracking/ListenTrackingService";
 
-  const reset = () => {
-    listenSentRef.current = false;
-    listenedRef.current = 0;
-    totalListenedRef.current = 0;
-    lastTimeRef.current = 0;
-    exitSentRef.current = false;
-  };
+export function useListenTracker(
+  song: Song | undefined
+) {
+  const [listenSong] =
+    useListenSongMutation();
 
-  const trackProgress = (delta: number) => {
-    if (delta > 0 && delta < 2) {
-      listenedRef.current += delta;
-      totalListenedRef.current += delta;
-    }
-  };
+  const [
+    service,
+  ] = useState(
+    () =>
+      new ListenTrackingService({
+        sendListen: ({
+          id,
+          seconds,
+          session_id,
+        }) => {
+          listenSong({
+            id,
+            seconds,
+            session_id,
+          });
+        },
+      })
+  );
 
-  const check30s = () => {
-    if (
-      listenedRef.current >= 30 &&
-      !listenSentRef.current &&
+  /*
+   * --------------------------------------------------
+   * Track progress
+   * --------------------------------------------------
+   */
+
+  const trackProgress = useCallback(
+    (currentTime: number) => {
+      service.trackProgress(
+        currentTime
+      );
+    },
+    [service]
+  );
+
+  /*
+   * --------------------------------------------------
+   * Heartbeat
+   * --------------------------------------------------
+   */
+
+  const check30s = useCallback(() => {
+    service.check30s(
       song?.unique_id
-    ) {
-      listenSentRef.current = true;
-
-      listenSong({
-        id: song.unique_id,
-        seconds: 30,
-      });
-    }
-  };
-
-  const onSongEnd = () => {
-    if (song?.unique_id && totalListenedRef.current > 0) {
-      listenSong({
-        id: song.unique_id,
-        seconds: Math.floor(totalListenedRef.current),
-      });
-    }
-  };
-
-  const onSongChange = () => {
-    if (
-      prevSongIdRef.current &&
-      prevSongIdRef.current !== song?.unique_id &&
-      totalListenedRef.current > 0
-    ) {
-      listenSong({
-        id: prevSongIdRef.current,
-        seconds: Math.floor(totalListenedRef.current),
-      });
-    }
-
-    prevSongIdRef.current = song?.unique_id || null;
-    reset();
-  };
-
-  const sendListenOnExit = () => {
-    if (exitSentRef.current) return;
-    if (!song?.unique_id || totalListenedRef.current <= 0) return;
-
-    exitSentRef.current = true;
-
-    const payload = JSON.stringify({
-      seconds: Math.floor(totalListenedRef.current),
-    });
-
-    const url = `${window.location.origin}/player/${song.unique_id}/listen/`;
-
-    navigator.sendBeacon(
-      url,
-      new Blob([payload], { type: "application/json" })
     );
-  };
+  }, [
+    service,
+    song?.unique_id,
+  ]);
 
-  // Tab close / background
+  /*
+   * --------------------------------------------------
+   * Song end
+   * --------------------------------------------------
+   */
+
+  const onSongEnd = useCallback(() => {
+    service.onSongEnd(
+      song?.unique_id
+    );
+  }, [
+    service,
+    song?.unique_id,
+  ]);
+
+  /*
+   * --------------------------------------------------
+   * Song change
+   * --------------------------------------------------
+   */
+
+  const onSongChange = useCallback(() => {
+    service.onSongChange(song);
+  }, [
+    service,
+    song,
+  ]);
+
+  /*
+   * --------------------------------------------------
+   * Reset
+   * --------------------------------------------------
+   */
+
+  const reset = useCallback(() => {
+    service.reset();
+  }, [service]);
+
+  /*
+   * --------------------------------------------------
+   * Page exit
+   * --------------------------------------------------
+   */
+
+  const sendListenOnExit =
+    useCallback(() => {
+      service.sendOnExit(
+        song?.unique_id
+      );
+    }, [
+      service,
+      song?.unique_id,
+    ]);
+
+  /*
+   * --------------------------------------------------
+   * Visibility / unload
+   * --------------------------------------------------
+   */
+
   useEffect(() => {
-    const hide = () => sendListenOnExit();
-    const unload = () => sendListenOnExit();
+    const handleVisibilityChange =
+      () => {
+        if (
+          document.visibilityState ===
+          "hidden"
+        ) {
+          sendListenOnExit();
+        }
+      };
 
-    document.addEventListener("visibilitychange", hide);
-    window.addEventListener("pagehide", unload);
-    window.addEventListener("beforeunload", unload);
+    const handlePageHide = () => {
+      sendListenOnExit();
+    };
+
+    const handleBeforeUnload =
+      () => {
+        sendListenOnExit();
+      };
+
+    document.addEventListener(
+      "visibilitychange",
+      handleVisibilityChange
+    );
+
+    window.addEventListener(
+      "pagehide",
+      handlePageHide
+    );
+
+    window.addEventListener(
+      "beforeunload",
+      handleBeforeUnload
+    );
 
     return () => {
-      document.removeEventListener("visibilitychange", hide);
-      window.removeEventListener("pagehide", unload);
-      window.removeEventListener("beforeunload", unload);
+      document.removeEventListener(
+        "visibilitychange",
+        handleVisibilityChange
+      );
+
+      window.removeEventListener(
+        "pagehide",
+        handlePageHide
+      );
+
+      window.removeEventListener(
+        "beforeunload",
+        handleBeforeUnload
+      );
     };
-  }, [song]);
+  }, [
+    sendListenOnExit,
+  ]);
 
   return {
     trackProgress,
     check30s,
     onSongEnd,
     onSongChange,
-    lastTimeRef,
-    totalListenedRef,
-    reset
+    reset,
   };
 }

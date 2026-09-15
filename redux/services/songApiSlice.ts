@@ -15,8 +15,11 @@ export const songApiSlice = apiSlice.injectEndpoints({
     getForYou: builder.query({
         query: () => '/recommendations/for-you/',
       }),
+    getSongDetail: builder.query({
+        query: (uniqueId) => `tracks/${uniqueId}/`,
+      }),
   }),
   
 });
 
-export const { usePlaySongMutation , useGetRecentlyPlayedQuery , useGetForYouQuery} = songApiSlice;
+export const { usePlaySongMutation , useGetRecentlyPlayedQuery , useGetForYouQuery , useGetSongDetailQuery} = songApiSlice;

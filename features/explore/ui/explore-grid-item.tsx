@@ -45,9 +45,9 @@ export const ExploreGridItem = ({
       onTouchEnd={onTouchEnd}
       onClick={onClick}
     >
-    {!thumb && (
+    {/* {!thumb && (
         <div className="absolute inset-0 bg-[#272727] animate-pulse" />
-      )}
+      )} */}
       {thumb && hovered !== uuid && (
         <Image
           src={thumb}

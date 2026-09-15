@@ -71,7 +71,7 @@ const ReelsViewer = ({ videos, startIndex, onClose }: Props) => {
   }, [currentIndex, isMusicPlaying]);
 
   return (
-    <div className="fixed inset-0 flex justify-center z-1" >
+    <div className="fixed inset-0 flex justify-center z-21" >
       <div
         ref={scrollContainerRef}
         className="h-screen w-110 max-[440px]:w-full overflow-y-scroll snap-y snap-mandatory"

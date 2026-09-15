@@ -6,8 +6,7 @@ interface Props {
 const BarMusicPlayer = ({progress}:Props) => {
   return (
     <div
-   
-    style={{ width: `${Math.min(progress, 100)}%` }}
+     style={{ width: `${Math.min(progress, 100)}%` }}
   />
   )
 }

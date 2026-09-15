@@ -7,9 +7,7 @@ const ArtistMiniCard = () => {
   const router = useRouter()
   const { data: artists, isLoading, error } = useGetFavArtistsQuery(0);
 
-  if (isLoading) {
-    return <p className="text-white p-4">Loading...</p>;
-  }
+  
 
   if (error) {
     return <p className="text-red-500 p-4">Error loading artists</p>;

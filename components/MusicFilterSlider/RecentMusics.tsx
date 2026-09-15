@@ -1,6 +1,6 @@
 import images from "@/public/images"
 import LikedSongCard from "./LikedSongCard"
-
+import { useRouter } from "next/navigation"
 import { Playlist, useGetUserPlaylistsQuery } from "@/redux/services/playlistApiSlice"
 import { useGetRecentlyPlayedQuery } from "@/redux/services/songApiSlice"
 import { Song } from "@/redux/features/playerSlice"
@@ -16,6 +16,7 @@ const recentartist = [
 
 
 const RecentMusics = () => {
+  const router = useRouter()
   const { data: playlists } = useGetUserPlaylistsQuery(0)
   const { data: recents } = useGetRecentlyPlayedQuery(0)
 
@@ -45,7 +46,9 @@ const RecentMusics = () => {
         <h1 className="font-semibold text-[23px] text-[rgba(255_255_255/0.96)]">
           Recents
         </h1>
-        <p className="text-[13px] text-[rgba(255_255_255/0.66)]">
+        <p className="text-[13px] text-[rgba(255_255_255/0.66)]"
+          onClick={()=> router.push('/library')}
+        >
           Show all
         </p>
       </div>

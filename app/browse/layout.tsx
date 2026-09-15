@@ -25,7 +25,7 @@ const filters = [
       width: "w-[86px]",
     },
     {
-      name: "Podcasts",
+      name: "Support Us",
       href: "/browse/trackpacks",
       height: "h-[34px]",
       padding: "px-[20.5px]",

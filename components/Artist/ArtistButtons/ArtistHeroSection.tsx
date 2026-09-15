@@ -4,7 +4,7 @@ import ArtistButtons from "./ArtistButtons"
 import images from "@/public/images"
 import type { Viewport } from "next";
 import { Artist } from "@/redux/services/artistApislice";
-
+import BackgroundLayers from "./BackgroundLayers";
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -25,18 +25,21 @@ const ArtistHeroSection = ({
 }:ArtistHeroSectionProps) => {
   return (
     <section className="relative w-full h-117 overflow-hidden -mt-[env(safe-area-inset-top)]">
-    <Image
-      src={image ?? 'item.jpg'}
-      alt="kagan"
-      fill
-      className="object-cover "
-      fetchPriority="high"
+  <Image
+    src={image ?? "/item.jpg"}
+    alt={artistname || ""}
+    fill
+    className="object-cover"
+    priority
+  />
+  
 
-      priority
-    />
-    <ArtistName artistname={artistname} />
-    <ArtistButtons data={data}  />
-  </section>
+  
+  <ArtistName artistname={artistname} />
+  <ArtistButtons data={data} />
+  
+  
+</section>
   )
 }
 

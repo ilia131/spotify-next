@@ -5,6 +5,7 @@ interface Props {
   currentSong:Song
 }
 const CoverMpImage = ({currentSong}:Props) => {
+
   return (
     <div className="flex w-full justify-center ">
           <Image src={currentSong.image_url ||images.sinazza} alt='covermusic' width={250} height={250}

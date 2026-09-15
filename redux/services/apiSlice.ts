@@ -19,9 +19,12 @@ const setCookie = (name: string, value: string, days = 1) => {
 };
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://127.0.0.1:8000/api',
+  baseUrl: 'http://127.0.0.1:8000/api/',
+  credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
-    const token = (getState() as RootState).auth.accessToken;
+    const token = (getState() as RootState).auth.accessToken 
+               || localStorage.getItem('access');
+    
     if (token) {
       headers.set('Authorization', `Bearer ${token}`);
     }
@@ -100,6 +103,16 @@ const baseQueryWithReauth: BaseQueryFn<
 export const apiSlice = createApi({
   baseQuery: baseQueryWithReauth,
   endpoints: () => ({}),
-  tagTypes: ["LikedSongs", "Playlists", "Playlist" , "FavoriteArtists"],
-
+  tagTypes: [
+    "LikedSongs",
+    "Playlists",
+    "Playlist",
+    "FavoriteArtists",
+    "PlayerAds",
+    "SubscriptionPlans",
+    "MySubscription",
+    "ArtistSubscription",
+    "SongSubscriptionAccess",
+    "UserProfile",
+  ],
 });

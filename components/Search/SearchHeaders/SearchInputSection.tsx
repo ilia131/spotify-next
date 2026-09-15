@@ -5,23 +5,35 @@ import SearchIconCs from '@/public/Icons/SearchIconCs'
 import { useGetSearchQuery } from "@/redux/services/searchFilterApislice"
 import Image from "next/image"
 import { Artist } from "@/redux/services/artistApislice"
-import { Song } from "@/redux/features/playerSlice"
 import { useDebounce } from "use-debounce"
-
+import { useRouter } from "next/navigation"
+import { Song, setQueue, } from "@/redux/features/playerSlice"
+import { useAppDispatch } from "@/redux/hook"
 
 interface Props {
   scrolled:boolean
 }
 
 const SearchInputSection = ({scrolled}:Props) => {
+  const dispatch = useAppDispatch()
+
+  const router = useRouter()
 
   const [query,setQuery] = useState("")
-  const [debouncedQuery] = useDebounce(query, 400)
+  const [debouncedQuery] = useDebounce(query, 10)
 
   const { data, isLoading } = useGetSearchQuery(debouncedQuery,{
     skip: debouncedQuery.length < 1
   })
-
+  const handlePlaySong = (selectedSong: Song) => {
+    const allSongs = data?.songs?.results || [];
+    const index = allSongs.findIndex((s : Song) => s.id === selectedSong.id);
+    
+    dispatch(setQueue({
+      songs: allSongs,
+      startIndex: index >= 0 ? index : 0
+    }));
+  };
   return (
     <div className="relative w-full">
 
@@ -52,130 +64,295 @@ const SearchInputSection = ({scrolled}:Props) => {
       </section>
 
       {query.length >= 1 && (
-        <div className="absolute top-15 left-0 w-full bg-[#1E1E1E]
-        rounded-2xl p-3 shadow-2xl z-50 h-60 overflow-y-scroll">
+  <div
+    className="
+      fixed
+      inset-0
+      z-[999]
+      bg-black/40
+      backdrop-blur-2xl
+      animate-fadeIn
+      hide-scrollbar
+    "
+  >
+    {/* Ambient Lights */}
 
-      {isLoading && (
-        <div className="flex flex-col gap-3 animate-pulse">
+    <div className="absolute -top-20 -left-20 w-96 h-96 rounded-full bg-green-500/10 blur-3xl" />
+    <div className="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-cyan-500/10 blur-3xl" />
 
-          {[...Array(3)].map((_,i)=>(
+    {/* Results Panel */}
+
+    <div
+  className="
+    fixed
+    inset-0
+
+    bg-black/20
+    backdrop-blur-[40px]
+    hide-scrollbar
+    overflow-y-auto
+
+    animate-fadeIn
+  "
+>
+      {/* Glass Reflection */}
+
+      <div
+        className="
+          absolute inset-0
+          bg-gradient-to-br
+          from-white/10
+          via-transparent
+          to-transparent
+          pointer-events-none
+        "
+      />
+
+      {/* Header */}
+
+      <div
+        className="
+          sticky
+          top-0
+          z-20
+
+          bg-black/20
+          backdrop-blur-xl
+
+          border-b border-white/10
+
+          px-6
+          py-5
+
+          flex
+          items-center
+          justify-between
+        "
+      >
+        <div>
+          <h2 className="text-white text-xl font-bold">
+            Search Results
+          </h2>
+
+          <p className="text-white/50 text-sm">
+            {query}
+          </p>
+        </div>
+
+        <button
+          onClick={() => setQuery("")}
+          className="
+            w-10
+            h-10
+
+            rounded-full
+
+            bg-white/10
+
+            hover:bg-white/20
+
+            text-white
+
+            transition
+          "
+        >
+          ✕
+        </button>
+      </div>
+
+      {/* Content */}
+
+      <div className="h-full overflow-y-auto p-5 pb-24">
+        {isLoading && (
+          <div className="flex flex-col gap-4 animate-pulse">
+            {[...Array(6)].map((_, i) => (
+              <div
+                key={i}
+                className="
+                  h-16
+                  rounded-2xl
+                  bg-white/5
+                "
+              />
+            ))}
+          </div>
+        )}
+
+        {/* TOP RESULT */}
+
+        {data?.top_result && (
+          <div className="mb-8">
+            <h3 className="text-white/60 text-sm mb-3">
+              Top Result
+            </h3>
+
             <div
-              key={i}
-              className="flex items-center gap-3 p-2"
+              onClick={() =>
+                router.push(
+                  `/artist/${data.top_result.artistname}`
+                )
+              }
+              className="
+                p-5
+
+                rounded-3xl
+
+                bg-white/5
+
+                border border-white/10
+
+                hover:bg-white/10
+
+                transition
+
+                cursor-pointer
+              "
             >
+              <p className="text-white text-lg font-bold">
+                {data.top_result.title ||
+                  data.top_result.artistname}
+              </p>
 
-              <div className="w-12 h-12 bg-[#2A2A2A] rounded-md"></div>
-
-              <div className="flex flex-col gap-2">
-                <div className="w-32 h-3 bg-[#2A2A2A] rounded"></div>
-                <div className="w-20 h-3 bg-[#2A2A2A] rounded"></div>
-              </div>
-
+              <p className="text-white/50 text-sm mt-1">
+                {data.top_result.type}
+              </p>
             </div>
-          ))}
-
-        </div>
-      )}
-
-          {/* TOP RESULT */}
-          {data?.top_result && (
-            <div className="mb-4">
-              {/* <p className="text-gray-400 text-sm mb-2">
-                Top Result
-              </p> */}
-
-              <div className="bg-[#2A2A2A] p-3 rounded-xl">
-                <p className="text-white font-bold">
-                  {data.top_result.title ||
-                   data.top_result.artistname}
-                </p>
-
-                <p className="text-gray-400 text-sm">
-                  {data.top_result.type}
-                </p>
-              </div>
-            </div>
-          )}
-
-          <div className="mb-4">
-
-          
-
-            <div className="flex flex-col gap-2">
-
-              {data?.songs?.results?.slice(0,5).map((song:Song)=>(
-                <div
-                  key={song.id}
-                  className="flex items-center gap-3
-                  hover:bg-[#2A2A2A]
-                  p-2 rounded-lg cursor-pointer"
-                >
-
-                  <Image
-                    width={48}
-                    height={48}
-                    alt=""
-                    src={song.image_url}
-                    className="w-12 h-12 rounded-md"
-                  />
-
-                  <div>
-                    <p className="text-white">
-                      {song.title}
-                    </p>
-
-                    {/* <p className="text-gray-400 text-sm">
-                      {song.artist?.artistname}
-                    </p> */}
-                  </div>
-
-                </div>
-              ))}
-
-            </div>
-
           </div>
+        )}
 
+        {/* SONGS */}
+
+        {data?.songs?.results?.length > 0 && (
+          <div className="mb-8">
+            <h3 className="text-white/60 text-sm mb-3">
+              Songs
+            </h3>
+
+            <div className="space-y-2">
+              {data.songs.results
+                .slice(0, 10)
+                .map((song: Song) => (
+                  <div
+                    key={song.id}
+                    onClick={() => {
+                      handlePlaySong(song);
+                      setQuery("");
+                    }}
+                    className="
+                      flex
+                      items-center
+                      gap-4
+
+                      p-3
+
+                      rounded-2xl
+
+                      hover:bg-white/10
+
+                      transition
+
+                      cursor-pointer
+                    "
+                  >
+                    <Image
+                      src={song.image_url}
+                      alt=""
+                      width={56}
+                      height={56}
+                      className="
+                        w-14
+                        h-14
+
+                        rounded-xl
+
+                        object-cover
+                      "
+                    />
+
+                    <div>
+                      <p className="text-white">
+                        {song.title}
+                      </p>
+
+                      <p className="text-white/40 text-sm">
+                        Song
+                      </p>
+                    </div>
+                  </div>
+                ))}
+            </div>
+          </div>
+        )}
+
+        {/* ARTISTS */}
+
+        {data?.artists?.results?.length > 0 && (
           <div>
+            <h3 className="text-white/60 text-sm mb-3">
+              Artists
+            </h3>
 
+            <div className="space-y-2">
+              {data.artists.results
+                .slice(0, 10)
+                .map((artist: Artist) => (
+                  <div
+                    key={artist.id}
+                    onClick={() => {
+                      router.push(
+                        `/artist/${artist.artistname}`
+                      );
+                      setQuery("");
+                    }}
+                    className="
+                      flex
+                      items-center
+                      gap-4
 
-            <div className="flex flex-col gap-2">
+                      p-3
 
-              {data?.artists?.results?.slice(0,5).map((artist:Artist)=>(
-                <div
-                  key={artist.id}
-                  className="flex items-center gap-3
-                  hover:bg-[#2A2A2A]
-                  p-2 rounded-lg cursor-pointer"
-                >
+                      rounded-2xl
 
-                  <Image
-                    alt=""
-                    width={48}
-                    height={48}
-                    src={artist.profile_pic}
-                    className="w-12 h-12 rounded-full"
-                  />
+                      hover:bg-white/10
 
-                  <div>
-                    <p className="text-white">
-                      {artist.artistname}
-                    </p>
+                      transition
 
-                    <p className="text-gray-400 text-sm">
-                      Artist
-                    </p>
+                      cursor-pointer
+                    "
+                  >
+                    <Image
+                      src={artist.profile_pic}
+                      alt=""
+                      width={56}
+                      height={56}
+                      className="
+                        w-14
+                        h-14
+
+                        rounded-full
+
+                        object-cover
+                      "
+                    />
+
+                    <div>
+                      <p className="text-white">
+                        {artist.artistname}
+                      </p>
+
+                      <p className="text-white/40 text-sm">
+                        Artist
+                      </p>
+                    </div>
                   </div>
-
-                </div>
-              ))}
-
+                ))}
             </div>
-
           </div>
-
-        </div>
-      )}
+        )}
+      </div>
+    </div>
+  </div>
+)}
 
     </div>
   )

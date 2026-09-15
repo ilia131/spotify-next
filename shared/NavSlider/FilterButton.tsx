@@ -18,8 +18,11 @@ export const FilterButton = ({ item, isActive, onClick  }: FilterButtonProps) =>
   }, [item.href, isActive, router])
   const baseClasses =
     "flex items-center justify-center rounded-[19px] text-[13px] transition-colors";
-  const activeClasses = "bg-[#1FD660] text-black/70 font-medium";
-  const inactiveClasses = "bg-[rgba(41,41,41,0.82)] text-white/75 font-medium";
+    const activeClasses =
+    "bg-[#1ED760] text-black font-semibold shadow-[0_0_20px_rgba(30,215,96,0.35)]";
+  
+  const inactiveClasses =
+    "bg-white/5 backdrop-blur-xl border border-white/10 text-white/80 hover:bg-white/10";
   const handlePrefetch = () => {
     if (!isActive) {
       router.prefetch(item.href);

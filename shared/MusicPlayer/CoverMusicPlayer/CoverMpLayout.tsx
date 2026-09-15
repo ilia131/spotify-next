@@ -16,12 +16,13 @@ interface Props {
   higherTime:string;
   handleSeek:(e: React.MouseEvent<HTMLDivElement>) => void
   buffered:number
-
+  onNext: ()=>void
+  onPrevious: ()=>void
 
 }
 
 
-const CoverMpLayout = ({onClose , progress , currentSong, lowerTime, higherTime, handleSeek , buffered}:Props) => {
+const CoverMpLayout = ({onClose , progress , currentSong, lowerTime, higherTime, handleSeek , buffered , onNext , onPrevious}:Props) => {
 
   
   useDominantColorFromImage(currentSong?.image_url)
@@ -63,7 +64,10 @@ const CoverMpLayout = ({onClose , progress , currentSong, lowerTime, higherTime,
           lowerTime={lowerTime}
           higherTime={higherTime}
           handleSeek={handleSeek}
+          onPrevious={onPrevious}
+
           setIsOpenLyric={openLyrics}
+          onNext={onNext}
         />
 
       </div>

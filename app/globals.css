@@ -57,7 +57,46 @@
 }
 
 
+/* استایل انیمیشن نوار صوتی */
+@keyframes sound-wave {
+  0%, 100% { height: 10px; }
+  50% { height: 20px; }
+}
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+.animate-sound {
+  animation: sound-wave 1s infinite ease-in-out;
+}
+
+/* برای اینکه انیمیشن‌ها با تأخیر شروع شوند */
+.delay-1 { animation-delay: 0s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.4s; }
+
+@keyframes modalShow {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
 
 @keyframes slideUp {
   from {
@@ -66,6 +105,26 @@
   to {
     transform: translateY(0);
   }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-18px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
 }
 
 .animate-slideUp {

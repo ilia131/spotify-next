@@ -21,7 +21,7 @@ const HeaderSection = ({filters , activeFilter , handleClick , handleClose , han
 
 }:FilterListProps) => {
   return (
-     <div className="max-[440px]:w-full w-110 flex flex-col pt-7.5 pl-4 pr-3.5 bg-[#151515] fixed z-2 pb-4.75">
+     <div className="max-[440px]:w-full w-110 flex flex-col pt-7.5 pl-4 pr-3.5  fixed z-2 pb-4.75">
         <div className="h-26 flex flex-col justify-between">
          <HeaderLibrary handleOpen={handleOpen}
           isSearching={isSearching}

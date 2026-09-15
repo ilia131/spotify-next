@@ -13,17 +13,27 @@ interface Props {
   handleSeek:(e: React.MouseEvent<HTMLDivElement>) => void
   buffered:number;
   setIsOpenLyric:(isOpenLyric : boolean) => void
+  onNext: ()=>void
+  onPrevious :  ()=>void
+
 
 }
 
-const MpButtons = ({currentSong , progress , lowerTime , higherTime , handleSeek , buffered , setIsOpenLyric}:Props) => {
+const MpButtons = ({currentSong , progress , lowerTime , higherTime , handleSeek , buffered , setIsOpenLyric , onNext
+  ,  onPrevious 
+
+}:Props) => {
   return (
     <div className="w-full h-64 ">
     <TitleSaveMp currentSong={currentSong}/>
     <BarTimeMp progress={progress} lowerTime={lowerTime} higherTime={higherTime} handleSeek={handleSeek}
     buffered={buffered}
     />
-    <MpPlayerButtons />
+    <MpPlayerButtons
+     onNext={onNext}
+     onPrevious={onPrevious}
+
+    />
     <ShareCastMp
     setIsOpenLyric={setIsOpenLyric}
     />

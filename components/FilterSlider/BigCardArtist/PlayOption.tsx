@@ -1,18 +1,53 @@
-
-const PlayOption = () => {
+const PlayOption = ({
+  isPlaying,
+  onTogglePlay,
+}: {
+  isPlaying: boolean;
+  onTogglePlay: (e: React.MouseEvent) => void;
+}) => {
   return (
-    <div className="w-19.5  flex justify-between items-center ">
-        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="3" viewBox="0 0 19 3" fill="none">
-        <circle cx="1.5" cy="1.5" r="1.5" fill="white" fillOpacity="0.78"/>
-        <circle cx="9.5" cy="1.5" r="1.5" fill="white" fillOpacity="0.78"/>
-        <circle cx="17.5" cy="1.5" r="1.5" fill="white" fillOpacity="0.78"/>
+    <button
+      onClick={onTogglePlay}
+      className="
+        group
+        w-13 h-13
+        rounded-full
+        bg-white
+        flex items-center justify-center
+        shadow-[0_10px_25px_rgba(0,0,0,0.25)]
+        hover:scale-110
+        active:scale-95
+        transition-all duration-300
+      "
+    >
+      {isPlaying ? (
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="black"
+          className="transition-transform group-hover:scale-110"
+        >
+          <rect x="6" y="5" width="4" height="14" rx="1" />
+          <rect x="14" y="5" width="4" height="14" rx="1" />
         </svg>
-        <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 42" fill="none">
-        <rect width="44" height="42" rx="21" fill="white" fillOpacity="0.81"/>
-            <path d="M17.5695 29.5707C16.9007 29.952 16.07 29.4664 16.0742 28.6966L16.1536 13.9744C16.1577 13.2046 16.9937 12.728 17.6582 13.1165L30.3683 20.5463C31.0329 20.9348 31.0277 21.8971 30.359 22.2784L17.5695 29.5707Z" fill="black" fillOpacity="0.98"/>
+      ) : (
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="black"
+          className="
+            translate-x-[1px]
+            transition-transform
+            group-hover:scale-110
+          "
+        >
+          <path d="M8 5v14l11-7z" />
         </svg>
-     </div>
-  )
-}
+      )}
+    </button>
+  );
+};
 
-export default PlayOption
+export default PlayOption;
