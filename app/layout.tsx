@@ -22,6 +22,10 @@ export const metadata: Metadata = {
   title: "Milify",
   description: "Milify",
   manifest: "/manifest.webmanifest",
+  icons: {
+    icon: "/Icons/milify-192.png",
+    apple: "/Icons/milify-180.png",
+  },
 };
 
 /* =========================
