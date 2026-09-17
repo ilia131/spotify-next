@@ -1,5 +1,5 @@
-import { apiSlice } from './apiSlice';
-import { Song } from '../features/playerSlice';
+import { apiSlice } from "./apiSlice";
+import { Song } from "../features/playerSlice";
 
 export interface Genre {
   id: number;
@@ -28,21 +28,22 @@ export const GenreApiSlice = apiSlice.injectEndpoints({
       { genre: string; nextUrl?: string | null }
     >({
       query: ({ genre, nextUrl }) => {
-        // اگر nextUrl وجود داشت، از همون استفاده کن
-        // وگرنه صفحه اول رو بگیر
-        if (nextUrl) {
-          return nextUrl; // معمولاً کامل هست، مثل /api/genres/browse/xxx/?page=2
-        }
-        return `/genres/browse/${genre}/`;
+        const url = nextUrl || `/genres/browse/${genre}/`;
+
+        console.log("🎵 [Genre] Request:", url);
+
+        return url;
       },
 
-      // همه صفحات یک ژانر رو زیر یک کلید نگه دار
       serializeQueryArgs: ({ queryArgs }) => {
         return queryArgs.genre;
       },
 
-      // نتایج جدید رو به نتایج قبلی اضافه کن
       merge: (currentCache, newItems) => {
+        console.log("🎵 [Genre] Merge:");
+        console.log("Current cache:", currentCache);
+        console.log("New items:", newItems);
+
         if (newItems?.songs?.results?.length) {
           currentCache.songs.results.push(...newItems.songs.results);
           currentCache.songs.next = newItems.songs.next;
@@ -50,16 +51,30 @@ export const GenreApiSlice = apiSlice.injectEndpoints({
         }
       },
 
-      // فقط وقتی nextUrl عوض شد دوباره fetch کن
       forceRefetch({ currentArg, previousArg }) {
+        console.log("🎵 [Genre] Force refetch:", {
+          currentArg,
+          previousArg,
+        });
+
         return currentArg?.nextUrl !== previousArg?.nextUrl;
       },
     }),
 
-    getAllGenre: builder.query({
-      query: () => `/genres/browse/`,
+    getAllGenre: builder.query<Genre[], void>({
+      query: () => {
+        const url = `/genres/browse/?_t=${Date.now()}`;
+    
+    
+        return url;
+      },
+    
+     
     }),
   }),
 });
 
-export const { useGetSongbyGenreQuery, useGetAllGenreQuery } = GenreApiSlice;
+export const {
+  useGetSongbyGenreQuery,
+  useGetAllGenreQuery,
+} = GenreApiSlice;

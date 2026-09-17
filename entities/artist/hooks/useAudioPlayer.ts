@@ -302,22 +302,31 @@ export const useAudioPlayer = () => {
   
       let index = startIndex;
   
-      for (let i = 0; i < queue.length; i++) {
+      for (
+        let i = 0;
+        i < queue.length;
+        i++
+      ) {
   
-        const targetSong = queue[index];
+        const targetSong =
+          queue[index];
   
         if (!targetSong) {
           return null;
         }
   
-  
-        // آهنگ رایگان
-        if (!targetSong.is_subscription_only) {
+        /*
+         * آهنگ رایگان
+         */
+        if (
+          !targetSong.is_subscription_only
+        ) {
           return index;
         }
   
-  
-        // آهنگ اشتراکی
+        /*
+         * آهنگ اشتراکی
+         */
         try {
   
           const access =
@@ -325,24 +334,30 @@ export const useAudioPlayer = () => {
               targetSong.unique_id
             ).unwrap();
   
-  
           if (access.can_play) {
             return index;
           }
   
-        } catch(error) {
+        } catch (error) {
+  
           console.error(
             "access check failed",
             error
           );
         }
   
+        /*
+         * آهنگ قفل بود
+         * برو آهنگ بعدی
+         */
   
-        // حرکت در لیست
-        if(direction === "next") {
+        if (
+          direction === "next"
+        ) {
   
           index =
-            (index + 1) % queue.length;
+            (index + 1) %
+            queue.length;
   
         } else {
   
@@ -353,15 +368,14 @@ export const useAudioPlayer = () => {
         }
       }
   
-  
       return null;
   
     },
     [
       queue,
-      fetchSongAccess
+      fetchSongAccess,
     ]
-  )
+  );
   /*
    * --------------------------------------------------
    * Show Advertisement
@@ -454,60 +468,56 @@ export const useAudioPlayer = () => {
     }
   
     /*
-     * آهنگ بعدی را پیدا کن
+     * اگر Queue خالی است
      */
-  
     if (!queue.length) {
       return;
     }
   
+    /*
+     * --------------------------------------------------
+     * پیدا کردن اولین آهنگ قابل پخش بعد از آهنگ فعلی
+     * --------------------------------------------------
+     *
+     * آهنگ‌های قفل‌شده یکی‌یکی رد می‌شوند
+     * تا اولین آهنگ باز پیدا شود.
+     */
+  
     const nextIndex =
       (currentIndex + 1) % queue.length;
   
-    const nextSong =
-      queue[nextIndex];
-  
-    if (!nextSong) {
-      return;
-    }
-  
-    /*
-     * آهنگ رایگان
-     */
-  
-    if (!nextSong.is_subscription_only) {
-      dispatch(playNext());
-      return;
-    }
-  
-    /*
-     * آهنگ قفل
-     */
-  
-    try {
-      const access =
-        await fetchSongAccess(
-          nextSong.unique_id
-        ).unwrap();
-  
-      if (access.can_play) {
-        dispatch(playNext());
-      } else {
-        /*
-         * کاربر اشتراک ندارد.
-         *
-         * آهنگ قفل پخش نمی‌شود.
-         */
-        console.log(
-          "Next song is locked."
-        );
-      }
-    } catch (error) {
-      console.error(
-        "Auto next access check failed:",
-        error
+    const playableIndex =
+      await findPlayableSongIndex(
+        nextIndex,
+        "next"
       );
+  
+    /*
+     * هیچ آهنگ قابل پخشی پیدا نشد
+     */
+    if (playableIndex === null) {
+      console.log(
+        "No playable next song found."
+      );
+  
+      return;
     }
+  
+    /*
+     * --------------------------------------------------
+     * رفتن مستقیم به اولین آهنگ قابل پخش
+     * --------------------------------------------------
+     */
+  
+    dispatch({
+      type: "player/setQueue",
+  
+      payload: {
+        songs: queue,
+        startIndex: playableIndex,
+      },
+    });
+  
   }, [
     queue,
     currentIndex,
@@ -515,7 +525,7 @@ export const useAudioPlayer = () => {
     advertisementController,
     playerAds,
     showAdvertisement,
-    fetchSongAccess,
+    findPlayableSongIndex,
     dispatch,
   ]);
 
@@ -727,97 +737,121 @@ export const useAudioPlayer = () => {
    */
 
   const handleAdFinished =
-    useCallback(() => {
-      /*
-       * اول تبلیغ را ببند.
-       */
+  useCallback(async () => {
+    /*
+     * اول تبلیغ را ببند.
+     */
+    setShowAd(false);
 
-      setShowAd(false);
+    /*
+     * تبلیغ فعلی را پاک کن.
+     */
+    setCurrentAd(null);
 
-      /*
-       * تبلیغ فعلی را پاک کن.
-       */
+    /*
+     * عملی که باعث نمایش تبلیغ شده بود
+     * را از ref می‌گیریم.
+     */
+    const action =
+      pendingAdActionRef.current;
 
-      setCurrentAd(null);
+    /*
+     * بعد از اجرای action
+     * مقدار آن را پاک می‌کنیم.
+     */
+    pendingAdActionRef.current =
+      null;
 
+    /*
+     * --------------------------------------------------
+     * Song End
+     * --------------------------------------------------
+     *
+     * اگر تبلیغ به خاطر تمام شدن آهنگ بود،
+     * نباید مستقیماً playNext() بزنیم.
+     *
+     * چون ممکن است آهنگ بعدی قفل باشد.
+     *
+     * اول اولین آهنگ قابل پخش را پیدا می‌کنیم.
+     */
 
-      /*
-       * عملی که باعث نمایش تبلیغ شده بود
-       * را از ref می‌گیریم.
-       */
+    if (
+      action === "song-end"
+    ) {
+      if (!queue.length) {
+        return;
+      }
 
-      const action =
-        pendingAdActionRef.current;
+      const nextIndex =
+        (currentIndex + 1) %
+        queue.length;
 
-
-      /*
-       * بعد از اجرای action
-       * مقدار آن را پاک می‌کنیم.
-       */
-
-      pendingAdActionRef.current =
-        null;
-
-
-      /*
-       * اگر تبلیغ به خاطر آهنگ تمام‌شده
-       * نمایش داده شده بود:
-       *
-       * باید آهنگ بعدی پخش شود.
-       */
+      const playableIndex =
+        await findPlayableSongIndex(
+          nextIndex,
+          "next"
+        );
 
       if (
-        action ===
-        "song-end"
+        playableIndex === null
       ) {
-        dispatch(
-          playNext()
+        console.log(
+          "No playable song after advertisement."
         );
 
         return;
       }
 
+      dispatch({
+        type: "player/setQueue",
 
-      /*
-       * اگر تبلیغ به خاطر Next
-       * نمایش داده شده بود:
-       *
-       * آهنگ بعدی.
-       */
+        payload: {
+          songs: queue,
+          startIndex:
+            playableIndex,
+        },
+      });
 
-      if (
-        action ===
-        "next"
-      ) {
-        dispatch(
-          playNext()
-        );
+      return;
+    }
 
-        return;
-      }
+    /*
+     * --------------------------------------------------
+     * Next
+     * --------------------------------------------------
+     */
 
+    if (
+      action === "next"
+    ) {
+      dispatch(
+        playNext()
+      );
 
-      /*
-       * اگر تبلیغ به خاطر Previous
-       * نمایش داده شده بود:
-       *
-       * آهنگ قبلی.
-       */
+      return;
+    }
 
-      if (
-        action ===
-        "previous"
-      ) {
-        dispatch(
-          playPrev()
-        );
+    /*
+     * --------------------------------------------------
+     * Previous
+     * --------------------------------------------------
+     */
 
-        return;
-      }
-    }, [
-      dispatch,
-    ]);
+    if (
+      action === "previous"
+    ) {
+      dispatch(
+        playPrev()
+      );
 
+      return;
+    }
+  }, [
+    queue,
+    currentIndex,
+    findPlayableSongIndex,
+    dispatch,
+  ]);
 
   /*
    * --------------------------------------------------

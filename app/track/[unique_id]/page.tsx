@@ -1,336 +1,293 @@
-'use client';
+import type { Metadata } from "next";
 
-import Image from "next/image";
-import { useParams } from "next/navigation";
-import { useDominantColorFromImage } from "@/shared/hooks/useDominantColorFromImage";
-import { useAppSelector  , useAppDispatch} from "@/redux/hook";
-import { playSingleSong, togglePlay} from "@/redux/features/playerSlice";
-import {
-  Heart,
-  Share2,
-  Disc3,
-  Headphones,
-} from "lucide-react";
-import { useToggleLikeSongMutation , useGetLikedSongsQuery ,useGetLikedStatusQuery} from "@/redux/services/likedSongs";
-import { useGetSongDetailQuery } from "@/redux/services/songApiSlice";
-import { Lyrics } from "@/redux/features/playerSlice";
-import { toast } from "react-toastify";
-import PlayGreenButton from "@/components/Artist/ArtistButtons/PlayGreenButton";
+import TrackDetail from "./TrackDetail";
 
-export default function TrackPage() {
+/* =========================================================
+   TYPES
+========================================================= */
 
-  const dispatch = useAppDispatch();
+interface SongSEO {
+  type: "song";
 
+  unique_id: string;
 
-  const params = useParams();
+  name: string;
 
-  const uniqueId = params.unique_id as string;
+  description: string;
 
-  const {
-    data: song,
-    isLoading,
-    isError,
-  } = useGetSongDetailQuery(uniqueId);
-  const { color, darkColor , isPlaying , currentSong } = useAppSelector(
-    (state) => state.player
-  );
+  image: string;
 
-  const songId = song?.unique_id ?? "";
+  artist_name: string;
 
-const [toggleLike, { isLoading: likeLoading }] =
-  useToggleLikeSongMutation();
+  title: string;
 
-const { data: likedStatus } =
-  useGetLikedStatusQuery(
-    songId ? [songId] : [],
-    {
-      skip: !songId,
-    }
-  );
+  seo_description: string;
 
-const liked =
-  songId
-    ? likedStatus?.[songId] ?? false
-    : false;
-  
-  useDominantColorFromImage(song?.image_url);
+  canonical_url: string;
 
-  const shareTrack = async () => {
-    if (!song) return;
-  
-    const url = `${window.location.origin}/track/${song.unique_id}`;
-  
-    try {
-      if (navigator.share) {
-        await navigator.share({
-          title: song.title,
-          text: `${song.artistname} - ${song.title}`,
-          url,
-        });
-  
-        return;
+  keywords: string[];
+
+  robots: string;
+
+  open_graph: {
+    title: string;
+    description: string;
+    image: string;
+    type: string;
+    url: string;
+  };
+
+  twitter: {
+    card: string;
+    title: string;
+    description: string;
+    image: string;
+  };
+
+  json_ld: {
+    "@context": string;
+    "@type": string;
+    name: string;
+    description: string;
+    url: string;
+    image?: string;
+
+    byArtist?: {
+      "@type": string;
+      name: string;
+    };
+
+    datePublished?: string;
+  };
+}
+
+/* =========================================================
+   API
+========================================================= */
+
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL ||
+  "http://127.0.0.1:8000";
+
+/* =========================================================
+   GET SONG SEO
+========================================================= */
+
+async function getSongSEO(
+  uniqueId: string
+): Promise<SongSEO | null> {
+  try {
+    const response = await fetch(
+      `${API_URL}/api/seo/song/${encodeURIComponent(
+        uniqueId
+      )}/`,
+      {
+        next: {
+          revalidate: 300,
+        },
       }
-  
-      await navigator.clipboard.writeText(url);
-  
-      toast.success("Link copied");
-    } catch (error) {
-      toast.error(`error ${error}`);
+    );
+
+    if (!response.ok) {
+      console.error(
+        "Song SEO API Error:",
+        response.status,
+        response.statusText
+      );
+
+      return null;
     }
-  };
-  const songIsPlaying =
-  isPlaying &&
-  currentSong?.unique_id === song.unique_id;
-  const handlePlay = () => {
-    if (!song) return;
-  
-    const isCurrentSong =
-      currentSong?.unique_id === song.unique_id;
-  
-    if (isCurrentSong) {
-      dispatch(togglePlay());
-      return;
-    }
-  
-    dispatch(
-      playSingleSong({
-        ...song,
-        audioUrl: song.track_url,
-      })
-    );
-  };
 
-  const handleLike = () => {
-    if (!songId) return;
-  
-    toggleLike(songId);
-  };
+    const data =
+      (await response.json()) as SongSEO;
 
-  if (isLoading) {
-    return (
-      <div className="h-screen flex items-center justify-center text-white bg-[#121212]">
-        Loading...
-      </div>
+    return data;
+  } catch (error) {
+    console.error(
+      "Song SEO Fetch Error:",
+      error
     );
+
+    return null;
   }
-  
+}
 
-  if (isError || !song) {
-    return (
-      <div className="h-screen flex items-center justify-center text-white bg-[#121212]">
-        Track not found
-      </div>
-    );
+/* =========================================================
+   METADATA
+========================================================= */
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{
+    unique_id: string;
+  }>;
+}): Promise<Metadata> {
+  const { unique_id } = await params;
+
+  const seo = await getSongSEO(
+    unique_id
+  );
+
+  /* =======================================================
+     FALLBACK
+  ======================================================= */
+
+  if (!seo) {
+    return {
+      title: "Milify | آهنگ",
+
+      description:
+        "گوش دادن به آهنگ ها و موزیک های ایرانی در میلیفای",
+
+      robots: {
+        index: true,
+        follow: true,
+      },
+    };
   }
+
+  /* =======================================================
+     METADATA
+  ======================================================= */
+
+  return {
+    title: seo.title,
+
+    description:
+      seo.seo_description ||
+      seo.description,
+
+    keywords: seo.keywords,
+
+    robots: seo.robots,
+
+    alternates: {
+      canonical:
+        seo.canonical_url ||
+        undefined,
+    },
+
+    /* =====================================================
+       OPEN GRAPH
+    ===================================================== */
+
+    openGraph: {
+      title:
+        seo.open_graph?.title ||
+        seo.title,
+
+      description:
+        seo.open_graph?.description ||
+        seo.seo_description ||
+        seo.description,
+
+      url:
+        seo.open_graph?.url ||
+        seo.canonical_url ||
+        undefined,
+
+      type: "music.song",
+
+      images: seo.open_graph?.image
+        ? [
+            {
+              url: seo.open_graph.image,
+
+              alt:
+                seo.name ||
+                "Milify Song",
+
+              width: 1200,
+
+              height: 630,
+            },
+          ]
+        : undefined,
+    },
+
+    /* =====================================================
+       TWITTER
+    ===================================================== */
+
+    twitter: {
+      card: "summary_large_image",
+
+      title:
+        seo.twitter?.title ||
+        seo.title,
+
+      description:
+        seo.twitter?.description ||
+        seo.seo_description ||
+        seo.description,
+
+      images: seo.twitter?.image
+        ? [seo.twitter.image]
+        : undefined,
+    },
+
+    /* =====================================================
+       AUTHOR
+    ===================================================== */
+
+    authors: seo.artist_name
+      ? [
+          {
+            name: seo.artist_name,
+          },
+        ]
+      : undefined,
+
+    creator:
+      seo.artist_name ||
+      "Milify",
+
+    publisher: "Milify",
+
+    category: "Music",
+  };
+}
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+export default async function TrackPage({
+  params,
+}: {
+  params: Promise<{
+    unique_id: string;
+  }>;
+}) {
+  const { unique_id } = await params;
+
+  const seo = await getSongSEO(
+    unique_id
+  );
 
   return (
-    <main 
-    
-    className="min-h-screen bg-[#121212] text-white pb-50"
-    style={{
-      background: `linear-gradient(
-        180deg,
-        ${color} 0%,
-        ${darkColor} 40%,
-        #121212 80%
-      )`,
-    }}
-    >
-    
-      {/* HERO */}
+    <>
+      {/* =====================================================
+          JSON-LD
+      ===================================================== */}
 
-      <section className="relative px-5 pt-8 pb-6">
+      {seo?.json_ld && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(
+              seo.json_ld
+            ),
+          }}
+        />
+      )}
 
-  <div
-    className="
-    absolute
-    inset-0
-    opacity-30
-    blur-3xl
-    overflow-hidden
-  "
-  >
-    <Image
-      fill
-      src={song.image_url}
-      alt={song.title}
-      className="object-cover"
-    />
-  </div>
+      {/* =====================================================
+          TRACK UI
+      ===================================================== */}
 
-  <div className="relative flex flex-col items-center">
-
-    <Image
-      src={song.image_url}
-      alt={song.title}
-      width={220}
-      height={220}
-      className="
-      w-[220px]
-      h-[220px]
-      rounded-md
-      object-cover
-      shadow-2xl
-    "
-    />
-
-    <div className="mt-6 text-center w-full">
-      <p className="text-xs uppercase text-zinc-400">
-        Song
-      </p>
-
-      <h1
-        className="
-        text-3xl
-        font-black
-        mt-2
-        leading-tight
-      "
-      >
-        {song.title}
-      </h1>
-
-      <div
-        className="
-        flex
-        justify-center
-        flex-wrap
-        gap-2
-        mt-3
-        text-sm
-        text-zinc-300
-      "
-      >
-        <span>{song.artistname}</span>
-        <span>•</span>
-        <span>{song.album_name}</span>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-      {/* ACTIONS */}
-
-      <section className="px-5 mt-2">
-  <div className="flex items-center gap-5">
-
-      <button
-      onClick={handleLike}
-      disabled={likeLoading}
-    >
-      <Heart
-        size={26}
-        color={liked ? "#1ed760" : "#ffffff"}
-        fill={liked ? "#1ed760" : "transparent"}
-      />
-    </button>
-
-    <button onClick={shareTrack}>
-      <Share2 size={24} />
-    </button>
-
-    <button className="ml-auto"
-    
-    >
-     <PlayGreenButton onPlay={handlePlay} isPlaying={songIsPlaying}/>
-    </button>
-
-  </div>
-</section>
-
-      {/* STATS */}
-
-      <section className="px-4 sm:px-6 md:px-8">
-        <h2 className="text-2xl md:text-3xl font-bold mb-5">
-          About this track
-        </h2>
-
-        <div
-          className="grid grid-cols-2 gap-3"
-        >
-          <div className="bg-[#181818] rounded-lg p-4">
-            <Disc3 />
-
-            <p className="text-zinc-400 mt-3">
-              Genre
-            </p>
-
-            <p className="font-semibold">
-              {song.genre_name}
-            </p>
-          </div>
-
-          <div className="bg-[#181818] rounded-lg p-4">
-            <Headphones />
-
-            <p className="text-zinc-400 mt-3">
-              Plays
-            </p>
-
-            <p className="font-semibold">
-              {song.play_count}
-            </p>
-          </div>
-
-          <div className="bg-[#181818] rounded-lg p-4">
-            <p className="text-zinc-400">
-              Tempo
-            </p>
-
-            <p className="font-semibold">
-              {song.tempo} BPM
-            </p>
-          </div>
-
-          <div className="bg-[#181818] rounded-lg p-4">
-            <p className="text-zinc-400">
-              Listeners
-            </p>
-
-            <p className="font-semibold">
-              {song.unique_listeners}
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* DESCRIPTION */}
-
-      <section className="px-4 sm:px-6 md:px-8 mt-10">
-        <h2 className="text-2xl md:text-3xl font-bold mb-4">
-          Description
-        </h2>
-
-        <p className="text-zinc-400 leading-7">
-          {song.description}
-        </p>
-      </section>
-
-      {/* LYRICS */}
-
-      <section className="px-4 sm:px-6 md:px-8 mt-10 pb-20">
-        <h2 className="text-2xl md:text-3xl font-bold mb-4">
-          Lyrics
-        </h2>
-
-        {song.lyrics?.length ? (
-          <div className="space-y-2">
-            {song.lyrics.map((line: Lyrics, index: number) => (
-              <p key={index}>
-                {line?.line}
-              </p>
-            ))}
-          </div>
-        ) : (
-          <div className="bg-[#181818] rounded-xl p-5">
-            <p className="text-zinc-500">
-              No lyrics available
-            </p>
-          </div>
-        )}
-      </section>
-
-    </main>
+      <TrackDetail />
+    </>
   );
 }

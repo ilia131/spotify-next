@@ -1,22 +1,22 @@
-"use client"
+"use client";
 
-import TitleMusic from "../ArtistTabs/TitleMusic"
-import PopularReleaseCard from "./PopularReleaseCard"
+import TitleMusic from "../ArtistTabs/TitleMusic";
+import PopularReleaseCard from "./PopularReleaseCard";
 
-import { useParams } from "next/navigation"
+import { useParams } from "next/navigation";
 
-import { useGetArtistAlbumsQuery } from "@/redux/services/artistContentApiSlice"
+import { useGetArtistAlbumsQuery } from "@/redux/services/artistContentApiSlice";
 
-import { Song } from "@/redux/features/playerSlice"
-import { Album } from "@/redux/services/artistApislice"
-
+import { Song } from "@/redux/features/playerSlice";
+import { Album } from "@/redux/services/artistApislice";
+import { useLanguage } from "@/i18n/LanguageProvider";
 
 const ArtistPopularRelease = () => {
-  const params = useParams<{ artistname: string }>()
+  const { t } = useLanguage();
 
-  const artistname = decodeURIComponent(
-    params.artistname
-  )
+  const params = useParams<{ artistname: string }>();
+
+  const artistname = decodeURIComponent(params.artistname);
 
   const {
     data,
@@ -25,8 +25,7 @@ const ArtistPopularRelease = () => {
   } = useGetArtistAlbumsQuery({
     artistname,
     cursor: null,
-  })
-
+  });
 
   const releases: Song[] =
     data?.results
@@ -35,18 +34,12 @@ const ArtistPopularRelease = () => {
         id: album.id,
         title: album.title,
         image_url: album.cover,
-      })) ?? []
-
-
-  /* =========================
-     Loading
-  ========================= */
+      })) ?? [];
 
   if (isLoading) {
     return (
       <div className="grid gap-2.25 px-4 pt-5.25">
-
-        <TitleMusic title="Popular releases" />
+        <TitleMusic title={t("artist.popularReleases")} />
 
         {[1, 2, 3, 4, 5].map((item) => (
           <div
@@ -61,7 +54,6 @@ const ArtistPopularRelease = () => {
               bg-[#181818]
             "
           >
-
             <div
               className="
                 h-[64px]
@@ -73,7 +65,6 @@ const ArtistPopularRelease = () => {
             />
 
             <div className="flex flex-1 flex-col gap-2">
-
               <div
                 className="
                   h-4
@@ -93,51 +84,32 @@ const ArtistPopularRelease = () => {
                   bg-[#292929]
                 "
               />
-
             </div>
-
           </div>
         ))}
-
       </div>
-    )
+    );
   }
-
-
-  /* =========================
-     Error
-  ========================= */
 
   if (isError) {
     return (
       <div className="px-4 pt-5">
-        <TitleMusic title="Popular releases" />
+        <TitleMusic title={t("artist.popularReleases")} />
 
         <p className="mt-4 text-sm text-white/40">
-          Couldn&apos;t load popular releases.
+          {t("artist.couldntLoadPopularReleases")}
         </p>
       </div>
-    )
+    );
   }
-
-
-  /* =========================
-     Empty
-  ========================= */
 
   if (!releases.length) {
-    return null
+    return null;
   }
-
-
-  /* =========================
-     Content
-  ========================= */
 
   return (
     <div className="grid gap-2.25 px-4 pt-5.25">
-
-      <TitleMusic title="Popular releases" />
+      <TitleMusic title={t("artist.popularReleases")} />
 
       {releases.map((item, index) => (
         <PopularReleaseCard
@@ -145,10 +117,8 @@ const ArtistPopularRelease = () => {
           item={item}
         />
       ))}
-
     </div>
-  )
-}
+  );
+};
 
-
-export default ArtistPopularRelease
+export default ArtistPopularRelease;

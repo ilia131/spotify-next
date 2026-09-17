@@ -24,6 +24,8 @@ const Music = () => {
     <div className="pl-4 relative hide-scrollbar pb-24 pt-15 overflow-hidden">
         <CardSection
             title="Made For You"
+            variant="track"
+
             items={ForYou ?? []}
           />
           <RecentMusics />

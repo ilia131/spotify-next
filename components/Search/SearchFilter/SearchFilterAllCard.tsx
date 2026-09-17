@@ -78,13 +78,13 @@ const SearchFilterAllCard = ({ title }: Props) => {
     isLoading,
     isFetching,
     isError,
-  } = useGetAllGenreQuery(0);
+  } = useGetAllGenreQuery();
 
   const genres: GenreCard[] =
-    data?.map((genre: GenreCard) => ({
-      name: genre.name,
-      color: getGenreColor(genre.name),
-    })) ?? [];
+  data?.map((genre) => ({
+    name: genre.name,
+    color: getGenreColor(genre.name),
+  })) ?? [];
 
   return (
     <section

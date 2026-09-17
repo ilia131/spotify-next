@@ -22,8 +22,12 @@ import {
   Disc3,
 } from "lucide-react";
 
+import { useLanguage } from "@/i18n/LanguageProvider";
+
 export default function MusicOptionsSheet() {
   const dispatch = useAppDispatch();
+
+  const { t } = useLanguage();
 
   const { isOpen, song } = useAppSelector(
     (state) => state.bottomSheet
@@ -69,6 +73,7 @@ export default function MusicOptionsSheet() {
 
   return (
     <div className="fixed inset-0 z-50">
+
       {/* Overlay */}
 
       <div
@@ -83,6 +88,7 @@ export default function MusicOptionsSheet() {
       {/* Ambient Lights */}
 
       <div className="absolute -top-20 -left-20 w-96 h-96 rounded-full bg-green-500/10 blur-3xl" />
+
       <div className="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-cyan-500/10 blur-3xl" />
 
       {/* Sheet */}
@@ -112,6 +118,7 @@ export default function MusicOptionsSheet() {
           animate-slideUp
         "
       >
+
         {/* Shine */}
 
         <div
@@ -184,6 +191,7 @@ export default function MusicOptionsSheet() {
         {/* Actions */}
 
         <div className="px-4 pb-8 flex flex-col gap-3">
+
           <button
             onClick={() => dispatch(openPlaylistModal())}
             className={actionClass}
@@ -193,7 +201,9 @@ export default function MusicOptionsSheet() {
               className="text-green-400"
             />
 
-            <span>Add to Playlist</span>
+            <span>
+              {t("musicOptions.addToPlaylist")}
+            </span>
           </button>
 
           <Link
@@ -206,7 +216,9 @@ export default function MusicOptionsSheet() {
               className="text-blue-400"
             />
 
-            <span>Go to Artist</span>
+            <span>
+              {t("musicOptions.goToArtist")}
+            </span>
           </Link>
 
           <Link
@@ -219,7 +231,9 @@ export default function MusicOptionsSheet() {
               className="text-purple-400"
             />
 
-            <span>View Track</span>
+            <span>
+              {t("musicOptions.viewTrack")}
+            </span>
           </Link>
 
           <button
@@ -233,7 +247,10 @@ export default function MusicOptionsSheet() {
                   size={20}
                   className="text-red-400"
                 />
-                <span>Remove from Liked Songs</span>
+
+                <span>
+                  {t("musicOptions.removeFromLiked")}
+                </span>
               </>
             ) : (
               <>
@@ -241,7 +258,10 @@ export default function MusicOptionsSheet() {
                   size={20}
                   className="text-pink-400"
                 />
-                <span>Like this Song</span>
+
+                <span>
+                  {t("musicOptions.likeSong")}
+                </span>
               </>
             )}
           </button>
@@ -256,8 +276,11 @@ export default function MusicOptionsSheet() {
               className="text-yellow-400"
             />
 
-            <span>View Album</span>
+            <span>
+              {t("musicOptions.viewAlbum")}
+            </span>
           </Link>
+
         </div>
       </div>
     </div>

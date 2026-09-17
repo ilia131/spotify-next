@@ -1,25 +1,31 @@
-import MusicRowCard from "@/components/Artist/ArtistTabs/MusicRowCard"
-import TitleMusic from "@/components/Artist/ArtistTabs/TitleMusic"
+"use client";
+
+import MusicRowCard from "@/components/Artist/ArtistTabs/MusicRowCard";
+import TitleMusic from "@/components/Artist/ArtistTabs/TitleMusic";
 import { Song } from "@/redux/features/playerSlice";
-
-
-
+import { useLanguage } from "@/i18n/LanguageProvider";
 
 interface FreshTrackRowsProps {
-  songs: Song[] 
+  songs: Song[];
 }
 
+const FreshTrackRows = ({ songs }: FreshTrackRowsProps) => {
+  const { t } = useLanguage();
 
-
-const FreshTrackRows = ({songs}:FreshTrackRowsProps) => {
   return (
-    <div className=" pl-4.5 pt-15.5 grid   gap-5  items-center">
-      <TitleMusic title="Fresh Tracks Friday!" />
-      {songs?.map((item , i)=>(
-         <MusicRowCard key={i} item={item} songs={songs} index={i} />
-      ))} 
-   </div>
-  )
-}
+    <div className="pl-4.5 pt-15.5 grid gap-5 items-center">
+      <TitleMusic title={t("home.freshTrackFriday")} />
 
-export default FreshTrackRows
+      {songs?.map((item, i) => (
+        <MusicRowCard
+          key={i}
+          item={item}
+          songs={songs}
+          index={i}
+        />
+      ))}
+    </div>
+  );
+};
+
+export default FreshTrackRows;

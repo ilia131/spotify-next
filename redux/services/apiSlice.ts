@@ -114,5 +114,13 @@ export const apiSlice = createApi({
     "ArtistSubscription",
     "SongSubscriptionAccess",
     "UserProfile",
+    "AdminUsers",
+    "AdminArtists",
+    "AdminSongs",
+    "AdminPlaylists",
+    "AdminRevenue",
+    "AdminPayments",
+    "AdminSubscriptions",
+    "AdminAds"
   ],
 });

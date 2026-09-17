@@ -12,7 +12,7 @@ const ArtistButtons = ({data}:{data : Artist}) => {
 
   return (
     <div className="absolute bottom-0 w-full h-37">
-      <BackgroundLayers dominantColor={dominantColor ?? ''} />
+      <BackgroundLayers image={data?.profile_pic} />
       <ArtistHeader data={data} />
     </div>
   )

@@ -6,6 +6,7 @@ import { Song } from "@/redux/features/playerSlice";
 import Link from "next/link";
 
 import ArtistVerify from "./ArtistVerify";
+import { useLanguage } from "@/i18n/LanguageProvider";
 
 import ShortVideoSection from "./ShortVideoSection";
 import { Artist, Shorts } from "@/redux/services/artistApislice";
@@ -34,6 +35,8 @@ interface ArtistContentSectionProps {
 
 
 const ArtistContentSection = ({songs , artistpick , shorts , artistname  , data }:ArtistContentSectionProps) => {
+  const { t } = useLanguage();
+
   return (
     <section className="grid pb-50 overflow-hidden">
       <ArtistPopularMusic songs={songs} />
@@ -59,8 +62,8 @@ const ArtistContentSection = ({songs , artistpick , shorts , artistname  , data 
           transition-all duration-200
         "
         >
-        Discography
-      </Link> 
+        {t("artist.discography")}
+        </Link> 
 </div>
     </section>
   );

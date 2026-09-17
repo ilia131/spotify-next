@@ -13,10 +13,10 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "@/redux/hook";
-
 import {
   closeMenu,
 } from "@/redux/features/uiSlice";
+import LanguageSwitcher from "@/shared/LanguageSwitcher/LanguageSwitcher";
 
 export default function RootClientLayout({
   children,
@@ -36,11 +36,17 @@ export default function RootClientLayout({
   const hasSong = useAppSelector(
     (state) => state.player.queue.length > 0
   );
+  
+  const locale = pathname.startsWith("/en")
+    ? "en"
+    : "fa";
 
+  const isEnglish = locale === "en";
   // Routes
   const isAuthPage =
     pathname === "/auth/login" ||
     pathname === "/auth/register";
+    
 
   const isAddLikedSongsPage =
     pathname === "/library/LikedSongs/AddLikeSongs";
@@ -51,6 +57,19 @@ export default function RootClientLayout({
   const handleCloseMenu = () => {
     dispatch(closeMenu());
   };
+  const isAdminRoute = pathname.startsWith("/admin"); 
+     if (isAdminRoute) {
+      return (
+        <div
+          className="min-h-screen w-full"
+          dir={isEnglish ? "ltr" : "rtl"}
+        >
+          {children}
+  
+          <LanguageSwitcher />
+        </div>
+      );
+    }
 
   return (
     <div className="flex justify-center w-full">
@@ -91,6 +110,7 @@ export default function RootClientLayout({
           !isHomePage && (
             <BottomNav />
           )}
+          <LanguageSwitcher />
       </div>
     </div>
   );

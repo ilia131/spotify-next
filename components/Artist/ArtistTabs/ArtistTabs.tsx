@@ -1,18 +1,27 @@
-"use client"
-import { useAppSelector  , useAppDispatch} from "@/redux/hook";
+"use client";
+
+import { useAppSelector, useAppDispatch } from "@/redux/hook";
 import { setActiveTab } from "@/redux/features/tabSlice";
+import { useLanguage } from "@/i18n/LanguageProvider";
+
 const ArtistTabs = () => {
-  const activeTab = useAppSelector((state) => state.tabs.activeTab);
+  const { t } = useLanguage();
+
+  const activeTab = useAppSelector(
+    (state) => state.tabs.activeTab
+  );
+
   const dispatch = useAppDispatch();
 
-  const handleTabChange = (tabName : string) => {
-        dispatch(setActiveTab(tabName));
-      };
+  const handleTabChange = (tabName: string) => {
+    dispatch(setActiveTab(tabName));
+  };
+
   return (
     <div className="flex gap-7.5 mt-0.75">
       <button
-            onClick={() => handleTabChange("music")}
-            className="relative pb-2"
+        onClick={() => handleTabChange("music")}
+        className="relative pb-2"
       >
         <span
           className={`text-[17px] font-normal ${
@@ -21,7 +30,7 @@ const ArtistTabs = () => {
               : "text-white/50"
           }`}
         >
-          Music
+          {t("artist.music")}
         </span>
 
         {activeTab === "music" && (
@@ -30,8 +39,8 @@ const ArtistTabs = () => {
       </button>
 
       <button
-            onClick={() => handleTabChange("clips")}
-            className="relative pb-2"
+        onClick={() => handleTabChange("clips")}
+        className="relative pb-2"
       >
         <span
           className={`text-[17px] font-normal ${
@@ -40,7 +49,7 @@ const ArtistTabs = () => {
               : "text-white/50"
           }`}
         >
-          Clips
+          {t("artist.clips")}
         </span>
 
         {activeTab === "clips" && (
@@ -48,7 +57,7 @@ const ArtistTabs = () => {
         )}
       </button>
     </div>
-  )
-}
+  );
+};
 
-export default ArtistTabs
+export default ArtistTabs;

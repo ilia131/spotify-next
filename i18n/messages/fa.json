@@ -1,0 +1,54 @@
+
+{
+    "home": {
+        "freshTracks": "آهنگ‌های تازه",
+        "freshTrackFriday": "آهنگ تازه جمعه",
+        "trendingHits": "آهنگ‌های ترند",
+        "popularAlbums": "آلبوم‌های محبوب",
+        "yourFavoriteArtists": "هنرمندان مورد علاقه شما",
+        "moreLike": "بیشتر شبیه",
+        "madeForYou": "ساخته شده برای شما",
+        "recommendedToday": "پیشنهاد امروز",
+        "favoriteArtists": "هنرمندان مورد علاقه",
+        "playlist": "پلی‌لیست",
+    "freshTracksTitle": "آهنگ‌های تازه",
+    "updatedWeekly": "به‌صورت هفتگی به‌روزرسانی می‌شود",
+    "year": "۱۴۰۵"
+    
+      },
+      "nav": {
+        "home": "خانه",
+        "search": "جستجو",
+        "library": "کتابخانه",
+        "explore": "کاوش"
+      },
+      "musicOptions": {
+        "addToPlaylist": "افزودن به پلی‌لیست",
+        "goToArtist": "رفتن به هنرمند",
+        "viewTrack": "مشاهده آهنگ",
+        "removeFromLiked": "حذف از آهنگ‌های پسندیده",
+        "likeSong": "پسندیدن آهنگ",
+        "viewAlbum": "مشاهده آلبوم"
+      },
+    "browse": {
+      "all": "همه",
+      "music": "موسیقی",
+      "albums": "آلبوم‌ها",
+      "supportUs": "حمایت از ما"
+    },
+    
+    "artist": {
+  "monthlyListeners": "شنونده ماهانه",
+  "following": "دنبال می‌کنید",
+  "follow": "دنبال کردن",
+  "music": "موسیقی",
+  "clips": "کلیپ‌ها",
+  "popularReleases": "انتشارهای محبوب",
+  "couldntLoadPopularReleases": "امکان بارگذاری انتشارهای محبوب وجود ندارد",
+  "featuring": "همکاری با",
+  "clipsFrom": "کلیپ‌های",
+  "about": "درباره",
+  "popular": "محبوب",
+  "discography": "دیسکوگرافی"
+}
+  }

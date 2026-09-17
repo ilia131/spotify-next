@@ -5,27 +5,42 @@ import { FilterItem } from "@/components/FilterSlider/types";
 export const useNavSlider = () => {
   const pathname = usePathname();
   const router = useRouter();
+
   const [isPending, startTransition] = useTransition();
   const [optimisticPath, setOptimisticPath] = useState<string | null>(null);
 
-  const currentPath = optimisticPath || pathname;
+  const currentPath = optimisticPath ?? pathname;
 
-  const isActive = useCallback((item: FilterItem) => {
-    if (item.name === "All") {
-      return currentPath === "/" || currentPath === "/browse";
-    }
-    return currentPath.startsWith(item.href);
-  }, [currentPath]);
+  const isActive = useCallback(
+    (item: FilterItem) => {
+      // All
+      if (item.href === "/browse" || item.href === "/") {
+        return currentPath === item.href;
+      }
 
-  const handleClick = useCallback((item: FilterItem) => {
-    if (pathname === item.href) return;
+      // سایر صفحات
+      return (
+        currentPath === item.href ||
+        currentPath.startsWith(`${item.href}/`)
+      );
+    },
+    [currentPath]
+  );
 
-    setOptimisticPath(item.href);
+  const handleClick = useCallback(
+    (item: FilterItem) => {
+      if (currentPath === item.href) {
+        return;
+      }
 
-    startTransition(() => {
-      router.push(item.href);
-    });
-  }, [pathname, router]);
+      setOptimisticPath(item.href);
+
+      startTransition(() => {
+        router.push(item.href);
+      });
+    },
+    [currentPath, router]
+  );
 
   return {
     isActive,

@@ -1,0 +1,56 @@
+{   
+    "home": {
+        "freshTracks": "Fresh Tracks",
+        "freshTrackFriday": "Fresh Track Friday!",
+        "trendingHits": "Trending Hits",
+        "popularAlbums": "Popular Albums",
+        "yourFavoriteArtists": "Your Favorite Artists",
+        "moreLike": "More Like",
+        "madeForYou": "Made For You",
+        "recommendedToday": "Recommended Today",
+        "favoriteArtists": "Favorite Artists",
+
+        "playlist": "Playlist",
+    "freshTracksTitle": "Fresh Tracks",
+    "updatedWeekly": "Updated weekly",  
+    "year": "2026"
+
+      },
+      
+      "nav": {
+        "home": "Home",
+        "search": "Search",
+        "library": "Library",
+        "explore": "Explore"
+      },
+      "musicOptions": {
+        "addToPlaylist": "Add to Playlist",
+        "goToArtist": "Go to Artist",
+        "viewTrack": "View Track",
+        "removeFromLiked": "Remove from Liked Songs",
+        "likeSong": "Like this Song",
+        "viewAlbum": "View Album"
+      },
+
+    "browse": {
+      "all": "All",
+      "music": "Music",
+      "albums": "Albums",
+      "supportUs": "Support Us"
+    },
+    "artist": {
+  "monthlyListeners": "monthly listeners",
+  "following": "Following",
+  "follow": "Follow",
+  "music": "Music",
+  "clips": "Clips",
+  "popularReleases": "Popular releases",
+  "couldntLoadPopularReleases": "Couldn't load popular releases.",
+  "featuring": "Featuring",
+  "clipsFrom": "Clips from",
+  "about": "About",
+  "popular": "Popular",
+  "discography": "Discography"
+  
+}
+  }

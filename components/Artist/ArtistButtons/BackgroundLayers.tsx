@@ -1,57 +1,49 @@
 interface Props {
-  dominantColor?: string;
+  image?: string;
 }
 
-const BackgroundLayers = ({ dominantColor }: Props) => {
+const BackgroundLayers = ({ image }: Props) => {
   return (
-    <>
-      <div
-        className="absolute inset-0 transition-all duration-700"
-        style={{
-          background: dominantColor
-            ? `
-              radial-gradient(circle at 50% 0%,
-                ${dominantColor}80 0%,
-                ${dominantColor}40 25%,
-                transparent 60%
-              ),
-
-              radial-gradient(circle at 20% 20%,
-                ${dominantColor}55,
-                transparent 50%
-              ),
-
-              radial-gradient(circle at 80% 10%,
-                ${dominantColor}33,
-                transparent 55%
-              ),
-
-              linear-gradient(
-                to bottom,
-                ${dominantColor}66 0%,
-                ${dominantColor}33 25%,
-                rgba(0,0,0,0.15) 55%,
-                #111c1e 100%
-              )
-            `
-            : "#111c1e",
-        }}
-      >
-        {/* Aurora blobs */}
+    <div className="absolute inset-0 overflow-hidden bg-[#121212]">
+      {/* Artist image */}
+      {image && (
         <div
-          className="absolute left-[-200px] top-[-100px] h-[500px] w-[500px] rounded-full blur-[150px]"
-          style={{ backgroundColor: dominantColor ?? "#22c55e" }}
-        />
-
-        <div
-          className="absolute right-[-150px] top-[50px] h-[450px] w-[450px] rounded-full blur-[150px]"
+          className="absolute inset-x-0 top-0 h-[650px] scale-110 bg-cover bg-center blur-[45px]"
           style={{
-            backgroundColor: dominantColor ?? "#a855f7",
-            opacity: 0.35,
+            backgroundImage: `url(${image})`,
           }}
         />
-      </div>
-    </>
+      )}
+
+      {/* Darken image */}
+      <div className="absolute inset-0 bg-black/25" />
+
+      {/* Main fade */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: `
+            linear-gradient(
+              to bottom,
+              rgba(18,18,18,0.05) 0%,
+              rgba(18,18,18,0.15) 20%,
+              rgba(18,18,18,0.45) 45%,
+              rgba(18,18,18,0.85) 68%,
+              #121212 85%
+            )
+          `,
+        }}
+      />
+
+      {/* Extra bottom fade */}
+      <div
+        className="absolute left-0 right-0 bottom-0 h-[45%]"
+        style={{
+          background:
+            "linear-gradient(to top, #121212 0%, transparent 100%)",
+        }}
+      />
+    </div>
   );
 };
 

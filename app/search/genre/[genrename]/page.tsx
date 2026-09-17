@@ -28,7 +28,6 @@ const Page = () => {
     isLoading,
     isFetching,
   } = useGetSongbyGenreQuery({ genre, nextUrl });
-
   const loaderRef = useRef<HTMLDivElement | null>(null);
 
   const songs: Song[] = data?.songs?.results ?? [];

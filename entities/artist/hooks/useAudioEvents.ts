@@ -5,7 +5,6 @@ import {
 
 import {
   setTimeData,
-  playNext,
 } from "@/redux/features/playerSlice";
 
 import {
@@ -16,7 +15,7 @@ import {
   Song,
 } from "@/redux/features/playerSlice";
 
- 
+
 export interface ListenTracker {
   trackProgress(
     delta: number
@@ -30,38 +29,54 @@ export interface ListenTracker {
 
   reset(): void;
 }
+
+
 export function useAudioEvents(
-  audioRef: RefObject<
-    HTMLAudioElement | null
-  >,
+  audioRef: RefObject<HTMLAudioElement | null>,
   song: Song | undefined,
   listenTracker: ListenTracker,
-  onSongEnded: () => void | Promise<void>
+  onSongEnded:
+    () =>
+      void |
+      Promise<void>
 ) {
+
   const dispatch =
     useAppDispatch();
 
+
   useEffect(() => {
+
     const audio =
       audioRef.current;
+
 
     if (!audio) {
       return;
     }
 
+
+    /* =================================================
+       TIME UPDATE
+    ================================================= */
+
     const update = () => {
+
       const current =
         audio.currentTime;
 
       const duration =
         audio.duration || 0;
 
+
       let buffered = 0;
+
 
       if (
         audio.buffered.length > 0 &&
         duration
       ) {
+
         const end =
           audio.buffered.end(
             audio.buffered.length - 1
@@ -71,6 +86,7 @@ export function useAudioEvents(
           end / duration;
       }
 
+
       dispatch(
         setTimeData({
           currentTime: current,
@@ -79,52 +95,76 @@ export function useAudioEvents(
         })
       );
 
-      /*
-       * Listen Tracking
-       */
+
       listenTracker.trackProgress(
         current
       );
 
-      /*
-       * Heartbeat
-       *
-       * همچنان همان منطق
-       * قبلی است.
-       */
       listenTracker.check30s();
     };
 
-    const ended = () => {
-      const adShown =
-        onSongEnded();
 
-      if (!adShown) {
-        dispatch(playNext());
+    /* =================================================
+       SONG ENDED
+    ================================================= */
+
+    const ended = async () => {
+
+      console.log(
+        "AUDIO EVENT: SONG ENDED"
+      );
+
+
+      try {
+
+        /*
+         * خیلی مهم:
+         *
+         * اینجا دیگر playNext()
+         * نداریم.
+         *
+         * handleSongEnded خودش تصمیم
+         * می‌گیرد کدام آهنگ قابل پخش است.
+         */
+
+        await onSongEnded();
+
+      } catch (error) {
+
+        console.error(
+          "Song ended handler error:",
+          error
+        );
       }
     };
+
 
     audio.addEventListener(
       "timeupdate",
       update
     );
 
+
     audio.addEventListener(
       "ended",
       ended
     );
 
+
     return () => {
+
       audio.removeEventListener(
         "timeupdate",
         update
       );
+
 
       audio.removeEventListener(
         "ended",
         ended
       );
     };
+
   }, [
     audioRef,
     song,

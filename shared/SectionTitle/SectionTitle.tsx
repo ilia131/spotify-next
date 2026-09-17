@@ -6,7 +6,7 @@ interface SectionTitleProps {
   
     return (
       <h1
-        className={`text-[rgba(255_255_255/0.92)] text-[21px] font-bold`}
+        className={`text-[rgba(255_255_255/0.92)] text-[21px] font-bold mr-2`}
       >
         {title}
       </h1>

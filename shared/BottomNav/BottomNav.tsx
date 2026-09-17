@@ -5,10 +5,13 @@ import { useState } from "react";
 import Logo from "../Logo/Logo";
 import ButtonBottomNav from "./ButtonBottomNav";
 import { usePathname } from "next/navigation";
+import { useLanguage } from "@/i18n/LanguageProvider";
 
 export default function BottomNav() {
   const [active, setActive] = useState("home");
   const pathname = usePathname();
+
+  const { t } = useLanguage();
 
   const isBlurNav = ["/search", "/library", "/explore"].includes(pathname);
 
@@ -16,25 +19,25 @@ export default function BottomNav() {
     {
       name: "home",
       icon: <Home size={24} />,
-      label: "Home",
+      label: t("nav.home"),
       href: "/",
     },
     {
       name: "search",
       icon: <Search size={24} />,
-      label: "Search",
+      label: t("nav.search"),
       href: "/search",
     },
     {
       name: "library",
       icon: <Library size={24} />,
-      label: "Library",
+      label: t("nav.library"),
       href: "/library",
     },
     {
       name: "explore",
       icon: <Logo />,
-      label: "Explore",
+      label: t("nav.explore"),
       href: "/explore",
     },
   ];
@@ -42,7 +45,7 @@ export default function BottomNav() {
   return (
     <section className="flex justify-center">
       <div className="fixed bottom-0 z-40 flex w-[440px] flex-col max-[440px]:w-full">
-        
+
         {/* Fade Top */}
         <div
           className={`h-4 ${

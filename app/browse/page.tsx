@@ -1,4 +1,3 @@
-"use client";
 
 import FilterSlider from "@/components/FilterSlider/FilterSlider";
 
