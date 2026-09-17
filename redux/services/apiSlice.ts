@@ -19,7 +19,7 @@ const setCookie = (name: string, value: string, days = 1) => {
 };
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://127.0.0.1:8000/api/',
+  baseUrl: 'https://spotify-django-13.onrender.com/api/',
   credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.accessToken 
